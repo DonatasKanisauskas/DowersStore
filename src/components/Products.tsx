@@ -1,13 +1,32 @@
-import Layout from "./layouts/Layout";
+import '../styles/Products.sass';
+import Product from './Product';
 
 function Products() {
   return (
     <>
-      <Layout>
-        <p>Suris</p>
-        <p>Mesa</p>
-        <p>Duona</p>
-      </Layout>
+      <h1>Products</h1>
+      <div className="products_container">
+        <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
+      </div>
     </>
   );
 }
