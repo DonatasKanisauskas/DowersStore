@@ -1,19 +1,25 @@
-import logo from '../logo.svg';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import '../styles/App.sass';
+import '../styles/Layout.sass';
 import Products from './Products';
+import Header from './Header';
+import Footer from './Footer';
+import Cart from "./Cart";
+
 
 function App() {
-	return (
-		// <div className="App">
-		//   <header className="App-header">
-		//     <img src={logo} className="App-logo" alt="logo" />
-		//     <p>
-		//       React Shop
-		//     </p>
-		//   </header>
-		// </div>
-		<Products />
-	);
+  return (
+    <BrowserRouter>
+      <Header />
+      <div className="content_box">
+        <Routes>
+          <Route path="/" element={<Products />} />
+          <Route path="cart" element={<Cart />} />
+        </Routes>
+      </div>
+      <Footer />
+    </BrowserRouter>
+  );
 }
 
 export default App;
