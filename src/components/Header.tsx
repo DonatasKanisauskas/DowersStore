@@ -1,15 +1,18 @@
+
+import { Link } from "react-router-dom";
+
 function Header() {
   return (
-    <>
-    <ul className="navbar">
-      <li><a href="#home">React Shop</a></li>
-      <li><a href="#link1">Link1</a></li>
-      <li><a href="#link2">Link2</a></li>
-      <li><a href="#link3">Link3</a></li>
-      <li className="float-right"><a href="#user">User</a></li>
-      <li className="float-right"><a href="#cart">Cart</a></li>
-    </ul>
-    </>
+    <div className="header">
+      <ul className="navbar">
+        <li><Link to="/">React Shop</Link></li>
+        <li><Link to="#link1">Link1</Link></li>
+        <li><Link to="#link2">Link2</Link></li>
+        <li><Link to="#link3">Link3</Link></li>
+        <li className="float-right"><Link to="#user">User</Link></li>
+        <li className="float-right"><Link to="/cart">Cart</Link></li>
+      </ul>
+    </div>
   );
 }
 
