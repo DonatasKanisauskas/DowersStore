@@ -1,21 +1,53 @@
-.navbar 
-  list-style-type: none
-  margin: 0
-  padding: 0
-  overflow: hidden
+#root
+  display: flex
+  min-height: 100vh
+  flex-direction: column
+  justify-content: flex-start
+
+.header, .footer
   background-color: #333
+  color: #fff
+  overflow: hidden
 
-  & li 
-    float: left
+  a, p
+    display: block
+    color: #fff
+    text-align: center
+    padding: 14px 16px
 
-    &:last-child 
-      border-right: none
-    & a 
-      display: block
-      color: white
-      text-align: center
-      padding: 14px 16px
-      text-decoration: none
+  a
+    text-decoration: none
 
-      &:hover:not(.active) 
-        background-color: #111
+    &:hover:not(.active)
+      background-color: #111
+
+.header
+  .navbar
+    list-style-type: none
+
+    & li
+      float: left
+
+.footer
+  margin-top: auto
+
+.content_box
+  align-self: center
+  width: 800px
+  padding: 20px
+  background-color: #fff
+
+
+@media only screen and (max-width: 600px)
+  .content_box
+    width: 98%
+    padding-left: 0
+    padding-right: 0
+
+@media only screen and (min-width: 601px) and (max-width: 850px)
+  .content_box
+    width: 540px
+
+@media only screen and (min-width: 1201px)
+  .content_box
+    width: 1000px

@@ -1,0 +1,66 @@
+.products_container
+  padding: 20px
+  display: flex
+  flex-wrap: wrap
+
+.product
+  &_card
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2)
+    transition: 0.3s
+    width: 32%
+    margin: 5px
+
+    &:hover
+      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2)
+      
+  &_image
+    height: 222px
+
+    img
+      width: 100%
+      height: 100%
+      object-fit: contain
+      overflow: hidden
+
+  &_container
+    height: 120px
+    padding: 2px 10px
+
+    h4
+      text-align: center
+      padding: 5px 0 7px
+      // padding-bottom: 5px
+      border-bottom: 1px solid #d5d5d5
+      margin-bottom: 5px
+    p
+      margin: 10px 10px 15px
+      display: -webkit-box
+      -webkit-line-clamp: 2
+      -webkit-box-orient: vertical
+      overflow: hidden
+
+
+@media only screen and (max-width: 450px)
+  .product_card
+    width: 100%
+    
+  .products_container
+    padding-left: 0
+    padding-right: 0
+
+@media only screen and (min-width: 451px) and (max-width: 550px)
+  .products_container
+    justify-content: center
+  .product_card
+    width: 70%
+    
+@media only screen and (min-width: 551px) and (max-width: 850px)
+  .product_card
+    width: 48%
+
+  .products_container
+    justify-content: space-between
+
+@media only screen and (min-width: 1401px)
+  .product_card
+    width: 23.9%
