@@ -14,7 +14,7 @@ function App() {
       <div className="content_box">
         <Routes>
           <Route path="/" element={<Products />} />
-          <Route path="cart" element={<Cart />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
       </div>
       <Footer />
