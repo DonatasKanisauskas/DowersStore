@@ -2,10 +2,11 @@
   padding: 20px
   display: flex
   flex-wrap: wrap
+  justify-content: space-evenly
 
 .product
   &_card
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2)
+    box-shadow: 1px 0px 16px 1px rgb(0,0,0,0.11)
     transition: 0.3s
     width: 32%
     margin: 5px
@@ -14,7 +15,7 @@
       box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2)
       
   &_image
-    height: 222px
+    height: 220px
 
     img
       width: 100%
@@ -23,44 +24,100 @@
       overflow: hidden
 
   &_container
-    height: 120px
-    padding: 2px 10px
+    padding: 2px 10px 10px
+    display: flex
+    flex-direction: column
+
+    h4, p
+      text-align: center
 
     h4
-      text-align: center
       padding: 5px 0 7px
-      // padding-bottom: 5px
-      border-bottom: 1px solid #d5d5d5
+      border-bottom: 1px solid #5cbbd5
       margin-bottom: 5px
-    p
-      margin: 10px 10px 15px
-      display: -webkit-box
-      -webkit-line-clamp: 2
-      -webkit-box-orient: vertical
-      overflow: hidden
+  
+  &_price
+    font-size: 1.1rem
+    color: #44aecd
+    font-weight: 500
 
-
-@media only screen and (max-width: 450px)
-  .product_card
+  &_button
     width: 100%
-    
+    padding: 15px 0
+    border-radius: 0
+    border: none
+    background-color: #c9f3ff
+    font-weight: bold
+    text-transform: uppercase
+  
+  &_title 
+    text-transform: capitalize
+
+  &_description
+    height: 40px
+    margin: 10px 3px
+    display: -webkit-box
+    -webkit-line-clamp: 2
+    -webkit-box-orient: vertical
+    overflow: hidden
+
+@media only screen and (max-width: 300px)
   .products_container
-    padding-left: 0
-    padding-right: 0
+    padding: 0
+      
+  .product
+    &_card
+      width: 100%
+      margin: 5px 0
+
+    &_image
+      height: 270px
+
+@media only screen and (min-width: 301px) and (max-width: 400px)
+  .product
+    &_card
+      width: 97%
+
+    &_image
+      height: 270px
+    
+    &_container
+      padding-left: 0
+      padding-right: 0
+
+@media only screen and (min-width: 401px) and (max-width: 450px)
+  .product
+    &_card
+      width: 89%
+
+    &_image
+      height: 280px
 
 @media only screen and (min-width: 451px) and (max-width: 550px)
-  .products_container
-    justify-content: center
-  .product_card
-    width: 70%
+  .product
+    &_card
+      width: 45%
+
+    &_image
+      height: 170px
     
 @media only screen and (min-width: 551px) and (max-width: 850px)
   .product_card
-    width: 48%
+    width: 45%
 
-  .products_container
-    justify-content: space-between
+@media only screen and (min-width: 1001px) and (max-width: 1200px)
+  .product_card
+    width: 29%
+
+@media only screen and (min-width: 1201px) and (max-width: 1400px)
+  .product_card
+    width: 26%
 
 @media only screen and (min-width: 1401px)
   .product_card
-    width: 23.9%
+    width: 23%
+
+
+@media only screen and (max-width: 530px)
+  .products_container
+    justify-content: center
