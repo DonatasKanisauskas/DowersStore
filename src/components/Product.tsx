@@ -1,23 +1,30 @@
 import logo from '../logo.svg';
 import '../styles/Products.sass';
 
-export type productType = {
+export interface productType {
+  id: number,
   title: string,
+  description: string,
   price: number,
-  desc: string
+  discountPercentage: number,
+  rating: number,
+  stock: number,
+  brand: string,
+  category: string,
+  thumbnail: string,
+  images: [string, string, string, string],
 };
 
-
-function Product({ title, price, desc }: productType) {
+function Product(props : productType) {
   return (
     <div className='product_card'>
       <div className='product_image'>
         <img src={logo} alt='Logo' />
       </div>
       <div className='product_container'>
-        <h4 className='product_title'>{title}</h4>
-        <p className='product_description'>{desc}</p>
-        <p className='product_price'>${price}</p>
+        <h4 className='product_title'>{props.title}</h4>
+        <p className='product_description'>{props.description}</p>
+        <p className='product_price'>${props.price}</p>
       </div>
       <button className='product_button'>add to cart</button>
     </div>
