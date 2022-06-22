@@ -27,6 +27,7 @@
     padding: 2px 10px 10px
     display: flex
     flex-direction: column
+    height: 150px
 
     h4, p
       text-align: center
@@ -38,23 +39,30 @@
   
   &_price
     font-size: 1.1rem
-    color: #44aecd
+    color: var(--white-theme-color-teal1)
     font-weight: 500
+
+  &_content, &_button
+    &:hover
+      cursor: pointer
 
   &_button
     width: 100%
     padding: 15px 0
     border-radius: 0
     border: none
-    background-color: #c9f3ff
+    background-color: var(--white-theme-color-teal1)
     font-weight: bold
     text-transform: uppercase
+
+    &:hover
+      background-color: var(--white-theme-color-teal2)
   
   &_title 
     text-transform: capitalize
 
   &_description
-    height: 40px
+    height: 45px
     margin: 10px 3px
     display: -webkit-box
     -webkit-line-clamp: 2
