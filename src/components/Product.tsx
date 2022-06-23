@@ -1,7 +1,5 @@
-import { useState } from 'react';
 import logo from '../logo.svg';
-import PopUp from './PopUp';
-import ProductView from './productView';
+import { Link } from "react-router-dom";
 
 export interface productType {
   id: number,
@@ -20,26 +18,14 @@ export interface productType {
 
 function Product(product: productType) {
 
-  const [open, setOpen] = useState(false);
-
-  const togglePopup = () => {
-    setOpen(!open);
-  }
-
   const addToCart = (product: productType) => {
     console.log("adding", product.title, "to cart");
-    return
   }
 
   return (
     <>
-      {open &&
-        <PopUp togglePopup={togglePopup} >
-          <ProductView {...product} />
-        </PopUp>
-      }
       <div className='product_card'>
-        <div className="product_content" onClick={togglePopup}>
+        <Link to={"/products/" + product.id}>
           <div className='product_image'>
             <img src={product.thumbnail || logo} alt='Logo' />
           </div>
@@ -48,7 +34,7 @@ function Product(product: productType) {
             <p className='product_description'>{product.description}</p>
             <p className='product_price'>${product.price}</p>
           </div>
-        </div>
+        </Link>
         <button className='product_button' onClick={() => addToCart(product)}>add to cart</button>
       </div>
     </>
