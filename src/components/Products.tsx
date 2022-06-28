@@ -4,14 +4,14 @@ import { useState, useEffect } from "react";
 
 
 function Products() {
-  const [data, setData] = useState<productType>();
+  const [productList, setProductList] = useState<productType>();
 
   const fetchPost = async () => {
     const response = await fetch(
       "https://dummyjson.com/products"
     );
-    const actualData = await response.json();
-    setData(actualData.products);
+    const data = await response.json();
+    setProductList(data.products);
   };
 
   useEffect(() => {
@@ -22,10 +22,11 @@ function Products() {
     <>
       <h1>Products</h1>
       <div className="products_container">
-        {data && data instanceof Array && 
-          data.map(props => (
-            <Product {...props} key={props.id} />
-          ))}
+        {productList instanceof Array &&
+          productList.map(product => (
+            <Product {...product} key={product.id} />
+          ))
+        }
       </div>
     </>
   );

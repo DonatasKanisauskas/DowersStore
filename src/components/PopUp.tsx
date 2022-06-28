@@ -4,7 +4,6 @@ import '../styles/PopUp.sass';
 
 
 const PopUp = (props: any) => {
-  console.log(props);
   return (
     <div className='popup_bg' onClick={props.togglePopup}>
       <div className='popup_container'>
