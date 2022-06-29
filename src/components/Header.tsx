@@ -1,8 +1,22 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 function Header() {
+  const [showHeader, setShowHeader] = useState(false);
+
+  var prevScrollpos = window.pageYOffset;
+  window.onscroll = function() {
+  var currentScrollPos = window.pageYOffset;
+    if (prevScrollpos > currentScrollPos) {
+      setShowHeader(false);
+    } else {
+      setShowHeader(true);
+    }
+    prevScrollpos = currentScrollPos;
+  }
+
   return (
-    <div className="header">
+    <div className="header" style={{ top: showHeader ? '-50px' : '0' }} >
       <ul className="navbar">
         <li><Link to="/">React Shop</Link></li>
         <li><Link to="#link1">Link1</Link></li>
