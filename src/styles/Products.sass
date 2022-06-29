@@ -157,9 +157,17 @@
   .product_card
     width: 45%
 
+
+@media only screen and (min-width: 851px) and (max-width: 1000px)
+  .productPreview_image
+    width: 400px
+
 @media only screen and (min-width: 1001px) and (max-width: 1200px)
   .product_card
     width: 29%
+
+  .productPreview_image
+    width: 400px
 
 @media only screen and (min-width: 1201px) and (max-width: 1400px)
   .product_card
@@ -173,3 +181,12 @@
 @media only screen and (max-width: 530px)
   .products_container
     justify-content: center
+
+
+@media only screen and (max-width: 850px)
+  .productPreview_container
+    flex-direction: column
+
+  .productPreview_image,
+  .productPreview_content
+    width: unset
