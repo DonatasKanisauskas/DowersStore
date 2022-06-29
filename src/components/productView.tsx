@@ -11,7 +11,7 @@ function ProductView() {
   const [open, setOpen] = useState(false);
   let [selectedImage, setSelectedImage] = useState<string>();
 
-  const fetchPost = async () => {
+  const fetchProduct = async () => {
     const response = await fetch(
       "https://dummyjson.com/products/"+id
     );
@@ -20,14 +20,14 @@ function ProductView() {
   };
 
   useEffect(() => {
-    fetchPost();
+    fetchProduct();
   }, []);
 
   const togglePopup = () => {
     setOpen(!open);
   }
 
-  const changeImage = (imageID: any) => {
+  const changeImage = (imageID: number) => {
     setSelectedImage(product?.images[imageID]);
   }
 

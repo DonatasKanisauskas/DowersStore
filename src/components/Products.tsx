@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 function Products() {
   const [productList, setProductList] = useState<productType>();
 
-  const fetchPost = async () => {
+  const fetchProducts = async () => {
     const response = await fetch(
       "https://dummyjson.com/products"
     );
@@ -15,7 +15,7 @@ function Products() {
   };
 
   useEffect(() => {
-    fetchPost();
+    fetchProducts();
   }, []);
 
   return (
