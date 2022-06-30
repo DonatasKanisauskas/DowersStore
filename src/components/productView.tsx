@@ -41,7 +41,10 @@ function ProductView() {
       {id && product &&
         <div className='productPreview_container'>
           <div className="productPreview_image">
-            <img className='productPreview_image_thumbnail' onClick={togglePopup} src={selectedImage || product.thumbnail || logo} alt='Logo' />
+            {/* <img className='productPreview_image_zoomin' src={selectedImage || product.thumbnail || logo} alt='' /> */}
+            <div className='productPreview_image_contain'>
+              <img className='productPreview_image_thumbnail' onClick={togglePopup} src={selectedImage || product.thumbnail || logo} alt='Logo' />
+            </div>
             <div className='productPreview_image_list'>
               {
                 product.images.map((image, i) => (

@@ -79,14 +79,25 @@
     background-color: #000
     flex-shrink: 0
 
+    &_contain
+      overflow: hidden
+
     &_thumbnail
       width: 100%
       height: 380px
       object-fit: contain
-      overflow: hidden
+      position: static
+
+      // ZOOM IN
+      transition: transform .5s
       
       &:hover
         cursor: pointer
+
+        // ZOOM IN
+        -ms-transform: scale(1.5)
+        -webkit-transform: scale(1.5)
+        transform: scale(1.5)
 
     &_list
       display: flex
