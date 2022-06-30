@@ -92,9 +92,22 @@
       display: flex
       align-items: center
       justify-content: center
-      background-color: #e7e7e736
+      background-color: #373737
       overflow: auto
       white-space: nowrap
+
+      &::-webkit-scrollbar
+        height: 10px
+        cursor: pointer
+      
+      &::-webkit-scrollbar-track
+        background: #373737
+
+      &::-webkit-scrollbar-thumb
+        background: #676767
+
+        &:hover
+          background: #838383
 
       img
         height: 60px
