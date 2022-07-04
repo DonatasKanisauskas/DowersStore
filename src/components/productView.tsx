@@ -13,7 +13,7 @@ function ProductView() {
 
   const fetchProduct = async () => {
     const response = await fetch(
-      "https://dummyjson.com/products/"+id
+      "https://dummyjson.com/products/" + id
     );
     const data = await response.json();
     setProduct(data);
@@ -31,6 +31,16 @@ function ProductView() {
     setSelectedImage(product?.images[imageID]);
   }
 
+  const zoomImage = (e: any) => {
+    let zoomer = e.currentTarget;
+    let rect = e.target.getBoundingClientRect();
+    e.offsetX = e.clientX - rect.left;
+    e.offsetY = e.clientY - rect.top;
+    let x = e.offsetX / zoomer.offsetWidth * 100;
+    let y = e.offsetY / zoomer.offsetHeight * 100;
+    zoomer.style.backgroundPosition = x + '% ' + y + '%';
+  }
+
   return (
     <>
       {open && product &&
@@ -41,14 +51,23 @@ function ProductView() {
       {id && product &&
         <div className='productPreview_container'>
           <div className="productPreview_image">
-            {/* <img className='productPreview_image_zoomin' src={selectedImage || product.thumbnail || logo} alt='' /> */}
             <div className='productPreview_image_contain'>
-              <img className='productPreview_image_thumbnail' onClick={togglePopup} src={selectedImage || product.thumbnail || logo} alt='Logo' />
+              <figure
+                className="productPreview_image_thumbnail"
+                onMouseMove={e => zoomImage(e)}
+                style={{ backgroundImage: `url(${selectedImage || product.thumbnail || logo})` }}
+              >
+                <img
+                  onClick={togglePopup}
+                  src={selectedImage || product.thumbnail || logo}
+                  alt='Logo'
+                />
+              </figure>
             </div>
             <div className='productPreview_image_list'>
               {
                 product.images.map((image, i) => (
-                  <img onClick={() => changeImage(i)} src={image} alt='img' key={i}  />
+                  <img onClick={() => changeImage(i)} src={image} alt='img' key={i} />
                 ))
               }
             </div>
