@@ -8,7 +8,6 @@ import PopUp from './PopUp';
 function ProductView() {
   const { id } = useParams();
   const [product, setProduct] = useState<productType>();
-  const [open, setOpen] = useState(false);
   let [selectedImage, setSelectedImage] = useState<string>();
 
   const fetchProduct = async () => {
@@ -22,10 +21,6 @@ function ProductView() {
   useEffect(() => {
     fetchProduct();
   }, []);
-
-  const togglePopup = () => {
-    setOpen(!open);
-  }
 
   const changeImage = (imageID: number) => {
     setSelectedImage(product?.images[imageID]);
@@ -41,11 +36,6 @@ function ProductView() {
 
   return (
     <>
-      {open && product &&
-        <PopUp togglePopup={togglePopup} >
-          <img src={selectedImage || product.thumbnail || logo} alt='Logo' />
-        </PopUp>
-      }
       {id && product &&
         <div className='productPreview_container'>
           <div className="productPreview_image">
@@ -56,7 +46,6 @@ function ProductView() {
                 style={{ backgroundImage: `url(${selectedImage || product.thumbnail || logo})` }}
               >
                 <img
-                  onClick={togglePopup}
                   src={selectedImage || product.thumbnail || logo}
                   alt='Logo'
                 />
