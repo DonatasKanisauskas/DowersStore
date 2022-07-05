@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import '../assets/styles/Products.sass';
+import '../assets/styles/ProductView.sass';
 import { productType } from './Product';
 import React, { useEffect, useState } from 'react';
 import logo from '../logo.svg';

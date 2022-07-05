@@ -1,0 +1,89 @@
+.productPreview
+  &_container
+    display: flex
+    justify-content: space-between
+
+  &_image
+    width: 450px
+    padding: 10px
+    background: none
+    flex-shrink: 0
+
+    &_contain
+      overflow: hidden
+      min-height: 300px
+      display: flex
+      align-items: center
+      justify-content: center
+
+    &_thumbnail
+      background-position: 50% 50%
+      overflow: hidden
+      cursor: pointer
+      background-repeat: no-repeat
+      border: 1px solid #efefef
+      margin: 10
+
+      img
+        transition: opacity 0.5s
+        display: block
+        width: 100%
+        max-height: 380px
+        object-fit: contain
+      
+        &:hover
+          opacity: 0
+
+
+    &_list
+      background: none
+      overflow: auto
+      white-space: nowrap
+
+      &::-webkit-scrollbar
+        height: 10px
+        cursor: pointer
+      
+      &::-webkit-scrollbar-track
+        background: none
+
+      &::-webkit-scrollbar-thumb
+        background: #acacac
+
+        &:hover
+          background: #8c8c8c
+
+      img
+        height: 60px
+        margin: 12px
+        border: 1px solid #acacac
+      
+        &:hover
+          cursor: pointer
+
+  &_content
+    width: 450px
+    padding: 0 20px
+
+  &_title
+    padding: 10px
+
+  &_description
+    padding: 15px 10px
+
+
+@media only screen and (min-width: 851px) and (max-width: 1000px)
+  .productPreview_image
+    width: 400px
+
+@media only screen and (min-width: 1001px) and (max-width: 1200px)
+  .productPreview_image
+    width: 400px
+
+@media only screen and (max-width: 850px)
+  .productPreview_container
+    flex-direction: column
+
+  .productPreview_image,
+  .productPreview_content
+    width: unset
