@@ -1,4 +1,4 @@
-import '../styles/Products.sass';
+import '../assets/styles/Products.sass';
 import Product, { productType } from './Product';
 import { useState, useEffect } from "react";
 

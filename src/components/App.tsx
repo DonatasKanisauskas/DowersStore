@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import '../styles/App.sass';
-import '../styles/Layout.sass';
+import '../assets/styles/App.sass';
+import '../assets/styles/Layout.sass';
 import Products from './Products';
-import Header from './Header';
-import Footer from './Footer';
+import Header from '../layouts/Header';
+import Footer from '../layouts/Footer';
 import Cart from "./Cart";
 import ProductView from "./productView";
 

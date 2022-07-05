@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
-import '../styles/Products.sass';
+import '../assets/styles/Products.sass';
 import { productType } from './Product';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from '../logo.svg';
 import PopUp from './PopUp';
 
@@ -31,14 +31,12 @@ function ProductView() {
     setSelectedImage(product?.images[imageID]);
   }
 
-  const zoomImage = (e: any) => {
-    let zoomer = e.currentTarget;
-    let rect = e.target.getBoundingClientRect();
-    e.offsetX = e.clientX - rect.left;
-    e.offsetY = e.clientY - rect.top;
-    let x = e.offsetX / zoomer.offsetWidth * 100;
-    let y = e.offsetY / zoomer.offsetHeight * 100;
-    zoomer.style.backgroundPosition = x + '% ' + y + '%';
+  const zoomImage = (e: React.MouseEvent<HTMLElement>) => {
+    let image = e.currentTarget;
+    let rect = image.getBoundingClientRect();
+    let x = (e.clientX - rect.left) / image.offsetWidth * 100;
+    let y = (e.clientY - rect.top) / image.offsetHeight * 100;
+    image.style.backgroundPosition = x + '% ' + y + '%';
   }
 
   return (

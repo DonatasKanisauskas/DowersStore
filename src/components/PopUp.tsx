@@ -1,6 +1,6 @@
 import logo from '../logo.svg';
-import '../styles/Products.sass';
-import '../styles/PopUp.sass';
+import '../assets/styles/Products.sass';
+import '../assets/styles/PopUp.sass';
 
 
 const PopUp = (props: any) => {
