@@ -3,7 +3,6 @@ import '../assets/styles/ProductView.sass';
 import { productType } from './Product';
 import React, { useEffect, useState } from 'react';
 import logo from '../logo.svg';
-import PopUp from './PopUp';
 
 function ProductView() {
   const { id } = useParams();
