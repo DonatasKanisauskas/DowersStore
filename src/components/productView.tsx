@@ -8,13 +8,29 @@ function ProductView() {
   const { id } = useParams();
   const [product, setProduct] = useState<productType>();
   let [selectedImage, setSelectedImage] = useState<string>();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<any>();
 
   const fetchProduct = async () => {
-    const response = await fetch(
-      "https://dummyjson.com/products/" + id
-    );
-    const data = await response.json();
-    setProduct(data);
+    setLoading(true);
+    try {
+      const response = await fetch(
+        `https://dummyjson.com/products/${id}`
+      );
+      const data = await response.json();
+      if (data.message) {
+        setError(data.message)
+      }
+      else {
+        setProduct(data);
+      }
+    }
+    catch (err: any) {
+      setError(err.message);
+    }
+    finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -35,6 +51,12 @@ function ProductView() {
 
   return (
     <>
+      {loading &&
+        <>Loading data...</>
+      }
+      {error &&
+        <>{error}</>
+      }
       {id && product &&
         <div className='productPreview_container'>
           <div className="productPreview_image">

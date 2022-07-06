@@ -4,14 +4,25 @@ import { useState, useEffect } from "react";
 
 
 function Products() {
-  const [productList, setProductList] = useState<productType>();
+  const [products, setProducts] = useState<productType>();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<any>();
 
   const fetchProducts = async () => {
-    const response = await fetch(
-      "https://dummyjson.com/products"
-    );
-    const data = await response.json();
-    setProductList(data.products);
+    setLoading(true);
+    try {
+      const response = await fetch(
+        `https://dummyjson.com/products`
+      );
+      const data = await response.json();
+      setProducts(data.products);
+    }
+    catch (err: any) {
+      setError(err.message);
+    }
+    finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -21,9 +32,15 @@ function Products() {
   return (
     <>
       <h1>Products</h1>
+      {loading &&
+        <>Loading data...</>
+      }
+      {error &&
+        <>{error}</>
+      }
       <div className="products_container">
-        {productList instanceof Array &&
-          productList.map(product => (
+        {products instanceof Array &&
+          products.map(product => (
             <Product {...product} key={product.id} />
           ))
         }
