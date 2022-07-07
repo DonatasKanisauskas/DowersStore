@@ -3,11 +3,13 @@ import '../assets/styles/ProductView.sass';
 import { productType } from './Product';
 import React, { useEffect, useState } from 'react';
 import logo from '../logo.svg';
+import star from '../assets/images/star.svg'
+
 
 function ProductView() {
   const { id } = useParams();
   const [product, setProduct] = useState<productType>();
-  let [selectedImage, setSelectedImage] = useState<string>();
+  const [selectedImage, setSelectedImage] = useState<string>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<any>();
 
@@ -81,9 +83,21 @@ function ProductView() {
             </div>
           </div>
           <div className='productPreview_content'>
+            <p>{product.brand}</p>
             <h3 className='productPreview_title'>{product.title}</h3>
+            <div className='productPreview_stars'>
+              {
+                [...Array(5)].map((e, i) => (
+                  Math.round(product.rating) > i
+                    ? <img className='star' src={star} alt="star" />
+                    : <img className='star no' src={star} alt="star" />
+                ))
+              }
+              <span className='productPreview_rating'>({product.rating})</span>
+            </div>
             <p className='productPreview_description'>{product.description}</p>
-            <p>${product.price}</p>
+            <p>stock: {product.stock}</p>
+            <p className='productPreview_price'>${product.price} <span>-{product.discountPercentage}%</span></p>
             <button className='product_button'>add to cart</button>
           </div>
         </div>
