@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import '../assets/styles/ProductView.sass';
 import { productType } from './Product';
 import React, { useEffect, useState } from 'react';
@@ -11,7 +11,7 @@ function ProductView() {
   const [product, setProduct] = useState<productType>();
   const [selectedImage, setSelectedImage] = useState<string>();
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<any>();
+  const navigate = useNavigate();
 
   const fetchProduct = async () => {
     setLoading(true);
@@ -21,14 +21,14 @@ function ProductView() {
       );
       const data = await response.json();
       if (data.message) {
-        setError(data.message)
+        navigate('/', {state: data.message});
       }
       else {
         setProduct(data);
       }
     }
     catch (err: any) {
-      setError(err.message);
+      navigate('/', {state: err.message});
     }
     finally {
       setLoading(false);
@@ -55,9 +55,6 @@ function ProductView() {
     <>
       {loading &&
         <>Loading data...</>
-      }
-      {error &&
-        <>{error}</>
       }
       {id && product &&
         <div className='productPreview_container'>
@@ -89,8 +86,8 @@ function ProductView() {
               {
                 [...Array(5)].map((e, i) => (
                   Math.round(product.rating) > i
-                    ? <img className='star' src={star} alt="star" />
-                    : <img className='star no' src={star} alt="star" />
+                    ? <img className='star' src={star} key={i} alt="star" />
+                    : <img className='star no' src={star} key={i} alt="star" />
                 ))
               }
               <span className='productPreview_rating'>({product.rating})</span>
@@ -98,7 +95,7 @@ function ProductView() {
             <p className='productPreview_description'>{product.description}</p>
             <p>stock: {product.stock}</p>
             <p className='productPreview_price'>${product.price} <span>-{product.discountPercentage}%</span></p>
-            <button className='product_button'>add to cart</button>
+            <button className='productPreview_button'>add to cart</button>
           </div>
         </div>
       }

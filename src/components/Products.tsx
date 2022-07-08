@@ -1,12 +1,15 @@
 import '../assets/styles/Products.sass';
 import Product, { productType } from './Product';
 import { useState, useEffect } from "react";
+import { useLocation } from 'react-router-dom';
+import PopUp from './PopUp';
 
 
 function Products() {
   const [products, setProducts] = useState<productType>();
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<any>();
+  const [error, setError] = useState<any>(null);
+  const { state } = useLocation();
 
   const fetchProducts = async () => {
     setLoading(true);
@@ -25,8 +28,13 @@ function Products() {
     }
   };
 
+  const closePopup = () => {
+    setError(null);
+  }
+
   useEffect(() => {
     fetchProducts();
+    setError(state);
   }, []);
 
   return (
@@ -36,7 +44,7 @@ function Products() {
         <>Loading data...</>
       }
       {error &&
-        <>{error}</>
+        <PopUp closePopup={closePopup} error={error} />
       }
       <div className="products_container">
         {products instanceof Array &&
