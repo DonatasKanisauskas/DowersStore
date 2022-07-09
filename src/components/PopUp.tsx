@@ -1,23 +1,36 @@
 import '../assets/styles/Products.sass';
 import '../assets/styles/PopUp.sass';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 
 const PopUp = (props: any) => {
+  let timer: any = null;
+  let time = 0
+  const [opacity, setOpacity] = useState({ opacity: 1 });
 
   useEffect(() => {
-    setTimeout(function() { //Start the timer
-      props.closePopup();
-    }.bind(this), 5000);
+    timer = setInterval(popupTime, 500);
   }, []);
 
+  const popupTime = () => {
+    time++;
+    if (time === 6) {
+      setOpacity({ opacity: 0 });
+    }
+    if (time > 9) {
+      window.clearInterval(timer);
+
+      // FIXME: doesnt completely stop component
+      props.closePopup();
+    }
+  };
+
   return (
-    <div className='popup_bg' onClick={props.closePopup}>
-      <div className='popup_container'>
+    <div className='popup_container' style={opacity}>
 
-        {props.error}
+      <p className='popup_text'>{props.error}</p>
+      <button className='popup_button' onClick={props.closePopup}>x</button>
 
-      </div>
     </div>
   );
 }
