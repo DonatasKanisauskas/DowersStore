@@ -21,14 +21,14 @@ function ProductView() {
       );
       const data = await response.json();
       if (data.message) {
-        navigate('/', {state: data.message});
+        navigate('/', { state: data.message });
       }
       else {
         setProduct(data);
       }
     }
     catch (err: any) {
-      navigate('/', {state: err.message});
+      navigate('/', { state: err.message });
     }
     finally {
       setLoading(false);
@@ -94,8 +94,10 @@ function ProductView() {
             </div>
             <p className='productPreview_description'>{product.description}</p>
             <p>stock: {product.stock}</p>
-            <p className='productPreview_price'>${product.price} <span>-{product.discountPercentage}%</span></p>
-            <button className='productPreview_button'>add to cart</button>
+            <div className='m-t-auto'>
+              <p className='productPreview_price'>${product.price} <span>-{product.discountPercentage}%</span></p>
+              <button className='productPreview_button'>add to cart</button>
+            </div>
           </div>
         </div>
       }

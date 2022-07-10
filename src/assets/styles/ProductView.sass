@@ -21,7 +21,7 @@
       overflow: hidden
       cursor: crosshair
       background-repeat: no-repeat
-      border: 1px solid #efefef
+      border: 1px solid #a1a1a1
       margin: 10
 
       img
@@ -64,7 +64,8 @@
           cursor: pointer
 
   &_content
-    position: relative
+    display: flex
+    flex-direction: column
     width: 450px
     padding: 0 20px
 
@@ -89,12 +90,6 @@
     padding: 15px 10px
 
   &_price
-    position: absolute
-    bottom: 55px
-    left: 0
-    right: 0
-    margin: 0 20px
-
     padding: 4px
     font-size: 20px
     font-weight: 500
@@ -140,11 +135,7 @@
         top: 13px
 
   &_button
-    position: absolute
-    bottom: 0
-    left: 0
-    right: 0
-    margin: 0 20px
+    width: 100%
     padding: 15px 0
     border-radius: 0
     border: none
