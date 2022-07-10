@@ -29,6 +29,7 @@ function Products() {
   };
 
   const closePopup = () => {
+    window.history.replaceState({}, document.title);
     setError(null);
   }
 
