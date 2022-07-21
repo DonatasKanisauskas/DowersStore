@@ -5,8 +5,8 @@ function Header() {
   const [showHeader, setShowHeader] = useState(false);
 
   var prevScrollpos = window.pageYOffset;
-  window.onscroll = function() {
-  var currentScrollPos = window.pageYOffset;
+  window.onscroll = function () {
+    var currentScrollPos = window.pageYOffset;
     if (prevScrollpos > currentScrollPos) {
       setShowHeader(false);
     } else {
@@ -16,15 +16,20 @@ function Header() {
   }
 
   return (
-    <div className="header" style={{ top: showHeader ? '-50px' : '0' }} >
-      <ul className="navbar">
-        <li><Link to="/">React Shop</Link></li>
-        <li><Link to="#link1">Link1</Link></li>
-        <li><Link to="#link2">Link2</Link></li>
-        <li><Link to="#link3">Link3</Link></li>
-        <li className="float-right"><Link to="#user">User</Link></li>
-        <li className="float-right"><Link to="/cart">Cart</Link></li>
-      </ul>
+    <div className="header flex" style={{ top: showHeader ? '-50px' : '0' }} >
+      <Link className="navbar_button title inline noShrink" to="/">React Shop</Link>
+      {/* button for phone dropdown menu */}
+      <div className="flex grow space-between">
+        <div className="inline">
+          <Link className="navbar_button inline" to="#link1">Link1</Link>
+          <Link className="navbar_button inline" to="#link2">Link2</Link>
+          <Link className="navbar_button inline" to="#link3">Link3</Link>
+        </div>
+        <div className="inline">
+          <Link className="navbar_button inline" to="#user">User</Link>
+          <Link className="navbar_button inline" to="/cart">Cart</Link>
+        </div>
+      </div>
     </div>
   );
 }
