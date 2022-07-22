@@ -10,16 +10,21 @@
     transition: 0.3s
     width: 32%
     margin: 5px
-    
+    transition: transform .3s
+
+    &:hover
+      transform: scale(1.02)
+
     a
       text-decoration: none
       color: black
 
     &:hover
       box-shadow: 0 8px 16px 5px rgba(0,0,0,0.2)
-      
+
   &_image
     height: 220px
+    background: #fff
 
     img
       width: 100%
@@ -35,10 +40,10 @@
 
     h4, p
       text-align: center
-  
+
   &_price
     font-size: 1.1rem
-    color: var(--white-theme-color-teal1)
+    color: var(--white-theme-color-teal_text)
     font-weight: 500
 
   &_content, &_button
@@ -50,14 +55,14 @@
     padding: 15px 0
     border-radius: 0
     border: none
-    background-color: var(--white-theme-color-teal1)
+    background-color: var(--white-theme-color-teal_bg)
     font-weight: bold
     text-transform: uppercase
 
     &:hover
       background-color: var(--white-theme-color-teal2)
-  
-  &_title 
+
+  &_title
     text-transform: capitalize
 
   &_description
@@ -71,7 +76,7 @@
 @media only screen and (max-width: 300px)
   .products_container
     padding: 0
-      
+
   .product
     &_card
       width: 100%
@@ -87,7 +92,7 @@
 
     &_image
       height: 270px
-    
+
     &_container
       padding-left: 0
       padding-right: 0
@@ -107,7 +112,7 @@
 
     &_image
       height: 170px
-    
+
 @media only screen and (min-width: 551px) and (max-width: 850px)
   .product_card
     width: 45%
@@ -123,7 +128,6 @@
 @media only screen and (min-width: 1401px)
   .product_card
     width: 23%
-
 
 @media only screen and (max-width: 530px)
   .products_container
