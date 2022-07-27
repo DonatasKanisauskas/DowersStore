@@ -15,6 +15,7 @@ function App() {
       <div className="content_box">
         <Routes>
           <Route path="/" element={<Products />} />
+          <Route path="/:category/products" element={<Products/>} />
           <Route path="/products/:id" element={<ProductView />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="*" element={<Navigate to="/" />} />
