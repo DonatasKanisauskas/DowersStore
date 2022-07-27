@@ -14,10 +14,10 @@ const PopUp = (props: any) => {
 
   const popupTime = () => {
     time++;
-    if (time === 6) {
+    if (time === 10) {
       setOpacity({ opacity: 0 });
     }
-    if (time > 6) {
+    if (time > 10) {
       stopInterval();
     }
   };
