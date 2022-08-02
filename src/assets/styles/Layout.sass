@@ -4,28 +4,32 @@
   flex-direction: column
   justify-content: flex-start
 
+.head
+  position: fixed
+  width: 100%
+  z-index: 3
+
 .navbar, .footer
   background-color: #333
   color: #fff
-  overflow: hidden
 
-  a, p
+  &_button, p
     color: #fff
     text-align: center
     padding: 14px 16px
 
-  a
+  &_button
     text-decoration: none
 
     &:hover:not(.active)
       background-color: #111
 
 .navbar
-  position: fixed
+  position: relative
   top: 0
   width: 100%
   transition: top 0.3s
-  z-index: 3
+  z-index: initial
 
   &_button
     display: inline-block
@@ -35,13 +39,37 @@
       padding: 5px 10px
       margin: 5px 15px
 
-  &_title
-    font-weight: 500
-    padding-right: 30px !important
-    padding-left: 30px !important
+  &_dropdown
+    z-index: -1
+
+.title
+  font-weight: 500
+  padding-right: 30px
+  padding-left: 30px
 
 .footer
   margin-top: auto
+
+  p
+    padding: 14px 16px
+
+.categories
+  &_button
+    cursor: pointer
+
+  &_dropdown
+    background-color: #333
+    padding: 0 18px
+
+    max-height: 0
+    overflow: hidden
+    transition: max-height .7s ease-out
+    overflow-y: scroll
+
+    a
+      display: block
+      color: white
+      text-decoration: none
 
 .content_box
   align-self: center
@@ -74,15 +102,20 @@
 
     &_dropdown
       flex-direction: column
-      max-height: 0
-      transition: max-height .7s ease-out
+      background: #333
+      width: 100vw
+      position: absolute
+      bottom: 199px
+      transition: all .7s ease-out
 
       &_section
         display: block
         border-top: 1px solid gray
+        padding: 10px 0
 
     &_button
       display: block
+      padding: 5px 0
 
       &_dropdown
         display: block
@@ -94,3 +127,4 @@
 
   .title
     display: inline-block
+    padding: 14px 16px

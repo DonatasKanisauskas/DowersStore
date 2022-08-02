@@ -1,7 +1,7 @@
 import '../assets/styles/Products.sass';
 import Product, { productType } from './Product';
 import { useState, useEffect } from "react";
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import PopUp from './PopUp';
 
 
@@ -9,7 +9,6 @@ function Products() {
   const { category } = useParams();
   const { state } = useLocation();
   const [products, setProducts] = useState<productType>();
-  const [categories, setCategories] = useState<Array<String>>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<any>(null);
 
@@ -30,29 +29,14 @@ function Products() {
     }
   };
 
-  const fetchCategories = async () => {
-    try {
-      const response = await fetch(
-        `https://dummyjson.com/products/categories`
-      );
-      const data = await response.json();
-      setCategories(data);
-    }
-    catch (err: any) {
-      setError(err.message);
-    }
-  };
-
   const closePopup = () => {
     window.history.replaceState({}, document.title);
     setError(null);
   }
 
   useEffect(() => {
-    console.log("test");
     fetchProducts();
     setError(state);
-    fetchCategories();
   }, [category]);
 
   return (
@@ -61,15 +45,6 @@ function Products() {
       {error &&
         <PopUp closePopup={closePopup} error={error} />
       }
-      <div className="categories flex wrap center">
-        <h4 className='noShrink'>Categories</h4>
-        <a href="/products">All</a>
-        {categories instanceof Array &&
-          categories.map((category, i) => (
-            <Link key={i} to={"/" + category + "/products"}>{category}</Link>
-          ))
-        }
-      </div>
       <div className="products_container">
         {loading &&
           <>Loading data...</>
