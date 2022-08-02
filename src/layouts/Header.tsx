@@ -22,23 +22,43 @@ function Header() {
     }
   };
 
-  const handleNavDropDown = () => {
+  const closeNavBar = () => {
     let ele: HTMLElement | null = document.querySelector("div.navbar_dropdown");
     if (ele) {
-      ele.style.bottom = (navDropDown) ? "" : "-199px";
-      setNavDropDown(!navDropDown);
-      if (categoriesDropDown) {
-        handleCategoriesDropDown();
+      ele.style.bottom = "";
+    }
+    ele = document.querySelector("a.navbar_button.categories_button");
+    if (ele) {
+      ele.style.backgroundColor = "";
+      ele.innerText = "Categories ⇩";
+    }
+    ele = document.querySelector("div.categories_dropdown");
+    if (ele) {
+      ele.style.maxHeight = "";
+    }
+
+    setNavDropDown(false);
+    setCategoriesDorpDown(false);
+  }
+
+  const handleNavDropDown = () => {
+    if (navDropDown) {
+      closeNavBar();
+    }
+    else {
+      let ele: HTMLElement | null = document.querySelector("div.navbar_dropdown");
+      if (ele) {
+        ele.style.bottom = "-199px";
+        setNavDropDown(true);
       }
     }
   }
 
   const handleCategoriesDropDown = () => {
-    let ele: HTMLElement | null = document.querySelector("a.navbar_button.categories_button");
+    let ele: HTMLElement | null = document.querySelector("div.navbar_dropdown");
     if (ele) {
-      ele.style.backgroundColor = (categoriesDropDown) ? "" : "#111";
-      ele.innerText = (categoriesDropDown) ? "Categories ⇩" : "Categories ⇪";
-      setCategoriesDorpDown(!categoriesDropDown);
+      ele.style.bottom = (categoriesDropDown) ? "-199px" : "-311px";
+      setNavDropDown(true);
     }
 
     ele = document.querySelector("div.categories_dropdown");
@@ -46,10 +66,11 @@ function Header() {
       ele.style.maxHeight = (categoriesDropDown) ? "" : "111px";
     }
 
-    ele = document.querySelector("div.navbar_dropdown");
+    ele = document.querySelector("a.navbar_button.categories_button");
     if (ele) {
-      ele.style.bottom = (navDropDown) ? "-311px" : "-199px";
-      setNavDropDown(!navDropDown);
+      ele.style.backgroundColor = (categoriesDropDown) ? "" : "#111";
+      ele.innerText = (categoriesDropDown) ? "Categories ⇩" : "Categories ⇪";
+      setCategoriesDorpDown(!categoriesDropDown);
     }
   }
 
@@ -88,7 +109,7 @@ function Header() {
               <a href="/products">All</a>
               {categories instanceof Array &&
                 categories.map((category, i) => (
-                  <Link key={i} to={"/" + category + "/products"}>{category}</Link>
+                  <Link key={i} to={"/" + category + "/products"} onClick={closeNavBar}>{category}</Link>
                 ))
               }
             </div>

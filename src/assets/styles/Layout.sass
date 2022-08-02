@@ -39,9 +39,6 @@
       padding: 5px 10px
       margin: 5px 15px
 
-  &_dropdown
-    z-index: -1
-
 .title
   font-weight: 500
   padding-right: 30px
@@ -58,6 +55,7 @@
     cursor: pointer
 
   &_dropdown
+    position: absolute
     background-color: #333
     padding: 0 18px
 
@@ -101,6 +99,7 @@
     flex-direction: column
 
     &_dropdown
+      z-index: -1
       flex-direction: column
       background: #333
       width: 100vw
@@ -124,6 +123,9 @@
       display: flex
       justify-content: space-between
       align-items: center
+
+  .categories_dropdown
+    position: unset
 
   .title
     display: inline-block
