@@ -56,13 +56,18 @@
 
   &_dropdown
     position: absolute
-    background-color: #333
-    padding: 0 18px
+    background-color: #111
+    text-align: center
 
-    max-height: 0
+    height: 0
     overflow: hidden
-    transition: max-height .7s ease-out
+    transition: height .7s ease-out
+    // z-index: 3
+
+  &_list
+    padding: 12px 0
     overflow-y: scroll
+    max-height: 50px
 
     a
       display: block

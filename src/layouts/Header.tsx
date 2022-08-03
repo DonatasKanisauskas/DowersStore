@@ -34,7 +34,7 @@ function Header() {
     }
     ele = document.querySelector("div.categories_dropdown");
     if (ele) {
-      ele.style.maxHeight = "";
+      ele.style.height = "";
     }
 
     setNavDropDown(false);
@@ -57,13 +57,13 @@ function Header() {
   const handleCategoriesDropDown = () => {
     let ele: HTMLElement | null = document.querySelector("div.navbar_dropdown");
     if (ele) {
-      ele.style.bottom = (categoriesDropDown) ? "-199px" : "-311px";
+      ele.style.bottom = (categoriesDropDown) ? "-199px" : "-310px";
       setNavDropDown(true);
     }
 
     ele = document.querySelector("div.categories_dropdown");
     if (ele) {
-      ele.style.maxHeight = (categoriesDropDown) ? "" : "111px";
+      ele.style.height = (categoriesDropDown) ? "" : "111px";
     }
 
     ele = document.querySelector("a.navbar_button.categories_button");
@@ -74,6 +74,8 @@ function Header() {
     }
   }
 
+
+
   var prevScrollpos = window.pageYOffset;
   window.onscroll = function () {
     var currentScrollPos = window.pageYOffset;
@@ -82,18 +84,24 @@ function Header() {
     } else {
       setShowHeader(true);
     }
-    if (navDropDown) {
-      handleNavDropDown();
-    }
-    if (categoriesDropDown) {
-      handleCategoriesDropDown();
-    }
+    closeNavBar();
     prevScrollpos = currentScrollPos;
   }
 
   useEffect(() => {
     fetchCategories();
   }, []);
+
+
+  const filterCategories = () => {
+    let input = (document.querySelector(".categories_input") as HTMLInputElement).value.toUpperCase();
+    let a: NodeListOf<HTMLElement> = document.querySelectorAll(".categories_list a");
+
+    Array.from(a).forEach(ele => {
+      let text = ele?.textContent?.toUpperCase() || ele?.innerText?.toUpperCase();
+      ele.style.display = (text.startsWith(input)) ? "" : "none";
+    });
+  }
 
   return (
     <div className="head">
@@ -106,12 +114,15 @@ function Header() {
           <div className="navbar_dropdown_section inline">
             <a className="navbar_button categories_button inline" onClick={handleCategoriesDropDown}>Categories ⇩</a>
             <div className="categories_dropdown">
-              <a href="/products">All</a>
-              {categories instanceof Array &&
-                categories.map((category, i) => (
-                  <Link key={i} to={"/" + category + "/products"} onClick={closeNavBar}>{category}</Link>
-                ))
-              }
+              <input className="categories_input" type="text" placeholder="Search.." onChange={filterCategories}></input>
+              <div className="categories_list">
+                <a href="/products">All</a>
+                {categories instanceof Array &&
+                  categories.map((category, i) => (
+                    <Link key={i} to={"/" + category + "/products"} onClick={closeNavBar}>{category}</Link>
+                  ))
+                }
+              </div>
             </div>
             <Link className="navbar_button inline" to="#link2">Link2</Link>
             <Link className="navbar_button inline" to="#link3">Link3</Link>
