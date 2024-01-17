@@ -1,9 +1,8 @@
-import '../assets/styles/Products.sass';
-import Product, { productType } from './Product';
+import "../styles/Products.sass";
+import Product, { productType } from "./Product";
 import { useState, useEffect } from "react";
-import { useLocation, useParams } from 'react-router-dom';
-import PopUp from './PopUp';
-
+import { useLocation, useParams } from "react-router-dom";
+import PopUp from "./PopUp";
 
 function Products() {
   const { category } = useParams();
@@ -16,15 +15,15 @@ function Products() {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://dummyjson.com/products${category ? "/category/" + category : ""}`
+        `https://dummyjson.com/products${
+          category ? "/category/" + category : ""
+        }`
       );
       const data = await response.json();
       setProducts(data.products);
-    }
-    catch (err: any) {
+    } catch (err: any) {
       setError(err.message);
-    }
-    finally {
+    } finally {
       setLoading(false);
     }
   };
@@ -32,7 +31,7 @@ function Products() {
   const closePopup = () => {
     window.history.replaceState({}, document.title);
     setError(null);
-  }
+  };
 
   useEffect(() => {
     fetchProducts();
@@ -42,18 +41,11 @@ function Products() {
   return (
     <>
       <h1>Products</h1>
-      {error &&
-        <PopUp closePopup={closePopup} error={error} />
-      }
+      {error && <PopUp closePopup={closePopup} error={error} />}
       <div className="products_container">
-        {loading &&
-          <>Loading data...</>
-        }
+        {loading && <>Loading data...</>}
         {products instanceof Array &&
-          products.map(product => (
-            <Product {...product} key={product.id} />
-          ))
-        }
+          products.map((product) => <Product {...product} key={product.id} />)}
       </div>
     </>
   );

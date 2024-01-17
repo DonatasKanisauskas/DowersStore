@@ -1,11 +1,10 @@
-import '../assets/styles/Products.sass';
-import '../assets/styles/PopUp.sass';
-import { useEffect, useState } from 'react';
-
+import "../styles/Products.sass";
+import "../styles/PopUp.sass";
+import { useEffect, useState } from "react";
 
 const PopUp = (props: any) => {
   let interval: any = null;
-  let time = 0
+  let time = 0;
   const [opacity, setOpacity] = useState({ opacity: 1 });
 
   useEffect(() => {
@@ -25,16 +24,16 @@ const PopUp = (props: any) => {
   const stopInterval = () => {
     clearInterval(interval);
     props.closePopup();
-  }
+  };
 
   return (
-    <div className='popup_container' style={opacity}>
-
-      <p className='popup_text'>{props.error}</p>
-      <button className='popup_button' onClick={stopInterval}>x</button>
-
+    <div className="popup_container" style={opacity}>
+      <p className="popup_text">{props.error}</p>
+      <button className="popup_button" onClick={stopInterval}>
+        x
+      </button>
     </div>
   );
-}
+};
 
 export default PopUp;
