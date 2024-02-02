@@ -1,8 +1,6 @@
-import "../styles/Products.sass";
-import "../styles/PopUp.sass";
 import { useEffect, useState } from "react";
 
-const PopUp = (props: any) => {
+export default function PopUp(props: any) {
   let interval: any = null;
   let time = 0;
   const [opacity, setOpacity] = useState({ opacity: 1 });
@@ -34,6 +32,4 @@ const PopUp = (props: any) => {
       </button>
     </div>
   );
-};
-
-export default PopUp;
+}
