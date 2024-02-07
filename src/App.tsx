@@ -10,7 +10,6 @@ export default function App() {
     <>
       <BrowserRouter>
         <Header />
-        {/* <div className="content_box"> */}
         <div className="container mx-auto px-4">
           <Routes>
             <Route path="/products" element={<Products />} />

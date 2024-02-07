@@ -21,6 +21,7 @@ export default function Products() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<any>(null);
   const [totalProducts, setTotalProducts] = useState<number>(0);
+  const [categories, setCategories] = useState<string[]>([]);
 
   const closePopup = () => {
     // window.history.replaceState({}, document.title);
@@ -28,17 +29,34 @@ export default function Products() {
     setError(null);
   };
 
+  // on Component mount
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(
+          "https://dummyjson.com/products/categories"
+        );
+        const data = await response.json();
+        setCategories(data);
+      } catch (err: any) {
+        console.error("Error fetching categories:", err.message);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  // on Products update
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `https://dummyjson.com/products?skip=${
-            productsPerPage * page
-          }&limit=${productsPerPage}${category ? "/category/" + category : ""}`
+          `https://dummyjson.com/products${
+            category ? "/category/" + category : ""
+          }?skip=${productsPerPage * page}&limit=${productsPerPage}`
         );
         const data = await response.json();
-        console.log(data);
         setProducts(data.products);
         setTotalProducts(data.total);
 
@@ -73,9 +91,107 @@ export default function Products() {
     }
   };
 
+  const dropdownMenu = document.getElementById("category-menu") as HTMLElement;
+  const searchInput = document.getElementById(
+    "search-input"
+  ) as HTMLInputElement;
+
+  // Function to toggle the dropdown state
+  const toggleDropdown = () => {
+    dropdownMenu.classList.toggle("hidden");
+  };
+
+  const idk2 = () => {
+    toggleDropdown();
+  };
+
+  // Add event listener to filter items based on input
+  const idk = () => {
+    const searchTerm = searchInput.value.toLowerCase();
+    const items = dropdownMenu.querySelectorAll("p");
+
+    items.forEach((item) => {
+      const text = item?.textContent?.toLowerCase();
+      if (text?.includes(searchTerm)) {
+        item.style.display = "block";
+      } else {
+        item.style.display = "none";
+      }
+    });
+  };
+
+  const selectCategory = (e: React.MouseEvent<HTMLParagraphElement>) => {
+    const selectedCategorie = (e.target as HTMLParagraphElement).textContent;
+    console.log(selectedCategorie);
+    navigate(
+      `/${selectedCategorie}/products?p=${previousPage}&pc=${productsPerPage}`
+    );
+    toggleDropdown();
+  };
+
+  const showAllCategories = () => {
+    navigate(`/products?p=${previousPage}&pc=${productsPerPage}`);
+    toggleDropdown();
+  };
+
   return (
     <>
+      {/* Product filters */}
       <div className="flex justify-end items-center gap-5 m-10">
+        <div className="relative group text-sm">
+          <label
+            htmlFor="categories"
+            className="block font-medium text-gray-500 text-center"
+          >
+            Categories
+          </label>
+          <button
+            id="category-button"
+            onClick={idk2}
+            className="flex items-center px-4 py-2 leading-tight text-center text-gray-500 border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-gray-700 bg-white"
+          >
+            <span>{category || "All categories"}</span>
+            <svg
+              className="w-2.5 h-2.5 ms-2.5"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 10 6"
+            >
+              <path stroke="currentColor" d="m1 1 4 4 4-4" />
+            </svg>
+          </button>
+          <div
+            id="category-menu"
+            className="hidden absolute right-0 mt-2 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 p-1 space-y-1 max-h-[200px] overflow-y-scroll"
+          >
+            <input
+              id="search-input"
+              className="block w-full px-4 py-2 text-gray-800 border rounded-md  border-gray-300 focus:outline-none"
+              type="text"
+              placeholder="Search items"
+              autoComplete="off"
+              onChange={idk}
+            />
+            <p
+              key="All"
+              onClick={showAllCategories}
+              className="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer rounded-md font-bold"
+            >
+              All categories
+            </p>
+            {categories.map((category, i) => (
+              <p
+                key={i}
+                onClick={selectCategory}
+                className="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer rounded-md"
+              >
+                {category}
+              </p>
+            ))}
+          </div>
+        </div>
+
         <ProductsPerPageSwitcher
           productsPerPage={productsPerPage}
           setProductsPerPage={setProductsPerPage}
