@@ -98,15 +98,16 @@ export default function Products() {
 
   // Function to toggle the dropdown state
   const toggleDropdown = () => {
+    clearCategorySearch();
     dropdownMenu.classList.toggle("hidden");
   };
 
-  const idk2 = () => {
+  const openCategoriesDropDown = () => {
     toggleDropdown();
   };
 
   // Add event listener to filter items based on input
-  const idk = () => {
+  const searchCategory = () => {
     const searchTerm = searchInput.value.toLowerCase();
     const items = dropdownMenu.querySelectorAll("p");
 
@@ -134,6 +135,15 @@ export default function Products() {
     toggleDropdown();
   };
 
+  const clearCategorySearch = () => {
+    searchInput.value = "";
+
+    const items = dropdownMenu.querySelectorAll("p");
+    items.forEach((item) => {
+      item.style.display = "block";
+    });
+  };
+
   return (
     <>
       {/* Product filters */}
@@ -147,7 +157,7 @@ export default function Products() {
           </label>
           <button
             id="category-button"
-            onClick={idk2}
+            onClick={openCategoriesDropDown}
             className="flex items-center px-4 py-2 leading-tight text-center text-gray-500 border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-gray-700 bg-white"
           >
             <span>{category || "All categories"}</span>
@@ -163,7 +173,7 @@ export default function Products() {
           </button>
           <div
             id="category-menu"
-            className="hidden absolute right-0 mt-2 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 p-1 space-y-1 max-h-[200px] overflow-y-scroll"
+            className="hidden absolute right-0 mt-2 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 p-1 space-y-1 max-h-[200px] min-w-[200px] overflow-y-scroll"
           >
             <input
               id="search-input"
@@ -171,7 +181,7 @@ export default function Products() {
               type="text"
               placeholder="Search items"
               autoComplete="off"
-              onChange={idk}
+              onChange={searchCategory}
             />
             <p
               key="All"
