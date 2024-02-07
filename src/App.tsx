@@ -13,11 +13,12 @@ export default function App() {
         {/* <div className="content_box"> */}
         <div className="container mx-auto px-4">
           <Routes>
-            <Route path="/" element={<Products />} />
+            <Route path="/products" element={<Products />} />
             <Route path="/:category/products" element={<Products />} />
             <Route path="/products/:id" element={<ProductView />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="*" element={<Navigate to="/" />} />
+            <Route path="/" element={<Navigate to="/products" />} />
+            <Route path="*" element={<Navigate to="/products" />} />
           </Routes>
         </div>
         <Footer />

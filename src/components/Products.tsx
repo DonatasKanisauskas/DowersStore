@@ -1,20 +1,30 @@
 import Product, { productType } from "./Product";
 import { useState, useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
 import PopUp from "./PopUp";
+import ProductsPerPageSwitcher from "./ProductPerPageSwitcher";
 
 export default function Products() {
   const { category } = useParams();
-  const { state } = useLocation();
+  const { state, search } = useLocation();
+  const navigate = useNavigate();
+
+  const queryParams = new URLSearchParams(search);
+  const initialPage = parseInt(queryParams.get("p") || "0", 10);
+  const initialProductsPerPage = parseInt(queryParams.get("pc") || "30", 10);
+
+  const [page, setPage] = useState<number>(initialPage);
+  const [productsPerPage, setProductsPerPage] = useState<number>(
+    initialProductsPerPage
+  );
   const [products, setProducts] = useState<productType>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<any>(null);
-  const [productsPerPage, setProductsPerPage] = useState<number>(30);
-  const [page, setPage] = useState<number>(0);
   const [totalProducts, setTotalProducts] = useState<number>(0);
 
   const closePopup = () => {
-    window.history.replaceState({}, document.title);
+    // window.history.replaceState({}, document.title);
+    navigate("/", { replace: true });
     setError(null);
   };
 
@@ -28,8 +38,12 @@ export default function Products() {
           }&limit=${productsPerPage}${category ? "/category/" + category : ""}`
         );
         const data = await response.json();
+        console.log(data);
         setProducts(data.products);
         setTotalProducts(data.total);
+
+        // Update URL in useEffect to reflect fetched data and page
+        navigate(`?p=${page}&pc=${productsPerPage}`);
       } catch (err: any) {
         setError(err.message);
       } finally {
@@ -39,73 +53,47 @@ export default function Products() {
 
     fetchProducts();
     setError(state);
-  }, [category, state, page, productsPerPage]);
+  }, [category, state, page, productsPerPage, navigate]);
 
   const nextPage = () => {
-    const nextPageNumber = page + 1;
-    const hasMorePages = productsPerPage * nextPageNumber < totalProducts;
+    const nextPage = page + 1;
+    const hasMorePages = productsPerPage * nextPage < totalProducts;
 
     if (hasMorePages) {
-      setPage(nextPageNumber);
+      setPage(nextPage);
+      navigate(`?p=${nextPage}&pc=${productsPerPage}`);
     }
   };
 
   const previousPage = () => {
-    if (page > 0) {
-      setPage(page - 1);
+    const previousPage = page - 1;
+    if (previousPage >= 0) {
+      setPage(previousPage);
+      navigate(`?p=${previousPage}&pc=${productsPerPage}`);
     }
   };
 
   return (
     <>
       <div className="flex justify-end items-center gap-5 m-10">
-        <label
-          htmlFor="productsPerPage"
-          className="block text-sm font-medium text-gray-900"
-        >
-          Products per page:
-        </label>
-        <div
-          className="flex rounded-md -space-x-px text-sm"
-          role="group"
-          id="productsPerPage"
-        >
-          <button
-            className={`px-4 py-2 leading-tight text-gray-500 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 ${
-              productsPerPage === 20 && " bg-blue-50"
-            }`}
-            onClick={() => setProductsPerPage(20)}
-          >
-            20
-          </button>
-          <button
-            className={`px-4 py-2 leading-tight text-gray-500 bg-white border border-gray-200 hover:bg-gray-100 hover:text-gray-700 ${
-              productsPerPage === 30 && "bg-blue-50"
-            }`}
-            onClick={() => setProductsPerPage(30)}
-          >
-            30
-          </button>
-          <button
-            className={`px-4 py-2 leading-tight text-gray-500 bg-white border border-gray-200 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 ${
-              productsPerPage === 40 && "bg-blue-50"
-            }`}
-            onClick={() => setProductsPerPage(40)}
-          >
-            40
-          </button>
-        </div>
+        <ProductsPerPageSwitcher
+          productsPerPage={productsPerPage}
+          setProductsPerPage={setProductsPerPage}
+        />
       </div>
 
       {error && <PopUp closePopup={closePopup} error={error} />}
 
-      <div className="flex flex-wrap justify-center gap-3 sm:gap-5">
-        {products
-          ? products instanceof Array &&
-            products.map((product) => <Product {...product} key={product.id} />)
-          : loading && (
-              <p className=" w-full text-center">Loading products...</p>
-            )}
+      <div className="flex flex-wrap justify-center gap-3 sm:gap-5 min-h-[500px]">
+        {loading ? (
+          <p className="w-full text-center self-center">Loading products...</p>
+        ) : products instanceof Array && products.length > 0 ? (
+          products.map((product) => <Product {...product} key={product.id} />)
+        ) : (
+          <p className="w-full text-center self-center">
+            No products found on this page.
+          </p>
+        )}
       </div>
 
       <nav className="flex justify-center m-10">
