@@ -94,7 +94,9 @@ export default function Products() {
         />
 
         <ProductsPerPageSwitcher
+          page={page}
           productsPerPage={productsPerPage}
+          setPage={setPage}
           setProductsPerPage={setProductsPerPage}
         />
       </div>
