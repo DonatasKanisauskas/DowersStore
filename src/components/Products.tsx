@@ -24,30 +24,12 @@ export default function Products() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<any>(null);
   const [totalProducts, setTotalProducts] = useState<number>(0);
-  const [categories, setCategories] = useState<string[]>([]);
 
   const closePopup = () => {
     // window.history.replaceState({}, document.title);
     navigate("/", { replace: true });
     setError(null);
   };
-
-  // first mount update
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await fetch(
-          "https://dummyjson.com/products/categories"
-        );
-        const data = await response.json();
-        setCategories(data);
-      } catch (err: any) {
-        console.error("Error fetching categories:", err.message);
-      }
-    };
-
-    fetchCategories();
-  }, []);
 
   // products update
   useEffect(() => {
@@ -86,14 +68,15 @@ export default function Products() {
   return (
     <>
       {/* Product filters */}
-      <div className="flex justify-end items-center gap-5 m-10">
+      <div className="flex flex-wrap justify-center sm:justify-end items-center gap-1 sm:gap-5 my-10 sm:m-10 ">
         <CategoryFilter
-          categories={categories}
+          className="w-full max-w-xs sm:w-auto min-w-[160px]"
           category={category || "All products"}
           setNewCategory={setNewCategory}
         />
 
         <ProductsPerPageSwitcher
+          className="w-full max-w-xs sm:w-auto"
           page={page}
           productsPerPage={productsPerPage}
           setPage={setPage}

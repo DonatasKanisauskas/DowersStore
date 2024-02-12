@@ -1,6 +1,7 @@
 import React from "react";
 
 interface ProductsPerPageSwitcherProps {
+  className: string;
   page: number;
   productsPerPage: number;
   setPage: (page: number) => void;
@@ -8,6 +9,7 @@ interface ProductsPerPageSwitcherProps {
 }
 
 const ProductsPerPageSwitcher: React.FC<ProductsPerPageSwitcherProps> = ({
+  className,
   page,
   productsPerPage,
   setPage,
@@ -22,20 +24,20 @@ const ProductsPerPageSwitcher: React.FC<ProductsPerPageSwitcherProps> = ({
   };
 
   return (
-    <div className="text-center text-sm">
+    <div className={`${className} text-center text-sm`}>
       <label
-        htmlFor="productsPerPage"
         className="block font-medium text-gray-500"
+        htmlFor="productsPerPage"
       >
         Products per page
       </label>
       <div
-        className="flex rounded-md -space-x-px"
-        role="group"
+        className="flex w-full rounded-md -space-x-px"
         id="productsPerPage"
+        role="group"
       >
         <button
-          className={`px-4 py-2 leading-tight text-gray-500 border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 ${
+          className={`px-4 py-2 w-full leading-tight text-gray-500 border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 ${
             productsPerPage === 20 ? "bg-blue-50" : "bg-white"
           }`}
           onClick={() => changeProductsPerPage(20)}
@@ -43,7 +45,7 @@ const ProductsPerPageSwitcher: React.FC<ProductsPerPageSwitcherProps> = ({
           20
         </button>
         <button
-          className={`px-4 py-2 leading-tight text-gray-500 border border-gray-200 hover:bg-gray-100 hover:text-gray-700 ${
+          className={`px-4 py-2 w-full leading-tight text-gray-500 border border-gray-200 hover:bg-gray-100 hover:text-gray-700 ${
             productsPerPage === 30 ? "bg-blue-50" : "bg-white"
           }`}
           onClick={() => changeProductsPerPage(30)}
@@ -51,7 +53,7 @@ const ProductsPerPageSwitcher: React.FC<ProductsPerPageSwitcherProps> = ({
           30
         </button>
         <button
-          className={`px-4 py-2 leading-tight text-gray-500 border border-gray-200 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 ${
+          className={`px-4 py-2 w-full leading-tight text-gray-500 border border-gray-200 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 ${
             productsPerPage === 40 ? "bg-blue-50" : "bg-white"
           }`}
           onClick={() => changeProductsPerPage(40)}
