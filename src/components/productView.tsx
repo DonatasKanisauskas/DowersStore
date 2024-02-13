@@ -22,8 +22,9 @@ export default function ProductView() {
         } else {
           setProduct(data);
         }
-      } catch (err: any) {
-        navigate("/", { state: err.message });
+      } catch (err) {
+        const ErrorMsg = err instanceof Error ? err.message : err;
+        navigate("/", { state: ErrorMsg });
       } finally {
         setLoading(false);
       }
