@@ -1,7 +1,7 @@
 import Product, { productType } from "./Product";
 import { useState, useEffect } from "react";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
-import PopUp from "./PopUp";
+import Toast from "./Toast";
 import ProductsPerPageSwitcher from "./productFilters/ProductPerPageSwitcher";
 import CategoryFilter from "./productFilters/CategoryFilter";
 import Pagination from "./Pagination";
@@ -22,14 +22,8 @@ export default function Products() {
   const [newCategory, setNewCategory] = useState<string>(category || "");
   const [products, setProducts] = useState<productType>();
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
   const [totalProducts, setTotalProducts] = useState<number>(0);
-
-  const closePopup = () => {
-    // window.history.replaceState({}, document.title);
-    navigate("/", { replace: true });
-    setError(null);
-  };
 
   // products update
   useEffect(() => {
@@ -44,8 +38,12 @@ export default function Products() {
         const data = await response.json();
         setProducts(data.products);
         setTotalProducts(data.total);
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err) {
+        setError(
+          err instanceof Error
+            ? `Error fetching categories: ${err.message}`
+            : `Unexpected error: ${err}`
+        );
       } finally {
         setLoading(false);
       }
@@ -73,6 +71,7 @@ export default function Products() {
           className="w-full max-w-xs sm:w-auto min-w-[160px]"
           category={category || "All products"}
           setNewCategory={setNewCategory}
+          setError={setError}
         />
 
         <ProductsPerPageSwitcher
@@ -84,7 +83,7 @@ export default function Products() {
         />
       </div>
 
-      {error && <PopUp closePopup={closePopup} error={error} />}
+      {error && <Toast time={10} error={error} setError={setError} />}
 
       <div className="flex flex-wrap justify-center gap-3 sm:gap-5 min-h-[500px]">
         {loading ? (
