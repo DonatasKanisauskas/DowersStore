@@ -38,7 +38,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
     };
 
     fetchCategories();
-  }, []);
+  }, [setError]);
 
   // Scroll to top when dropdown opens
   useEffect(() => {

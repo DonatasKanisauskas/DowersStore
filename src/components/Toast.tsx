@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 interface ToastProps {
   /** Time in seconds */
@@ -8,17 +8,17 @@ interface ToastProps {
 }
 
 const Toast: React.FC<ToastProps> = ({ time, error, setError }) => {
+  const closePopUp = useCallback(() => {
+    setError(null);
+  }, [setError]);
+
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      ClosePopUp();
+      closePopUp();
     }, 1000 * time);
 
     return () => clearTimeout(timeoutId);
-  }, []);
-
-  const ClosePopUp = () => {
-    setError(null);
-  };
+  }, [closePopUp, time]);
 
   return (
     <div
@@ -44,7 +44,7 @@ const Toast: React.FC<ToastProps> = ({ time, error, setError }) => {
         className="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8"
         data-dismiss-target="#toast-danger"
         aria-label="Close"
-        onClick={ClosePopUp}
+        onClick={closePopUp}
       >
         <span className="sr-only">Close</span>
         <svg
@@ -56,9 +56,9 @@ const Toast: React.FC<ToastProps> = ({ time, error, setError }) => {
         >
           <path
             stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
             d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
           />
         </svg>

@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { productType } from "./Product";
 import React, { useEffect, useState } from "react";
 import logo from "/logo.svg";
-import Star from "../assets/Star";
+import StarRating from "./StarRating";
 
 export default function ProductView() {
   const { id } = useParams();
@@ -81,11 +81,7 @@ export default function ProductView() {
             <p>{product.brand}</p>
             <h3>{product.title}</h3>
             <div>
-              {[...Array(5)].map((e, i) => (
-                <Star
-                  fill={Math.round(product.rating) > i ? "gold" : "lightgray"}
-                />
-              ))}
+              <StarRating rating={product.rating} />
               <span>({product.rating})</span>
             </div>
             <p>{product.description}</p>
