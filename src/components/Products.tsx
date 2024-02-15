@@ -5,6 +5,7 @@ import Toast from "./Toast";
 import ProductsPerPageSwitcher from "./productFilters/ProductPerPageSwitcher";
 import CategoryFilter from "./productFilters/CategoryFilter";
 import Pagination from "./Pagination";
+import Search from "./productFilters/Search";
 
 export default function Products() {
   const { category } = useParams();
@@ -20,7 +21,7 @@ export default function Products() {
     initialProductsPerPage
   );
   const [newCategory, setNewCategory] = useState<string>(category || "");
-  const [products, setProducts] = useState<productType>();
+  const [products, setProducts] = useState<productType[] | undefined>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [totalProducts, setTotalProducts] = useState<number>(0);
@@ -67,6 +68,12 @@ export default function Products() {
     <>
       {/* Product filters */}
       <div className="flex flex-wrap justify-center sm:justify-end items-center gap-1 sm:gap-5 my-10 sm:m-10 ">
+        <Search
+          className="w-full max-w-xs sm:w-auto"
+          setProducts={setProducts}
+          setError={setError}
+        />
+
         <CategoryFilter
           className="w-full max-w-xs sm:w-auto min-w-[160px]"
           category={category || "All products"}

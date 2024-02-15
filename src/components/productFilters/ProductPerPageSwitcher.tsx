@@ -1,7 +1,7 @@
 import React from "react";
 
 interface ProductsPerPageSwitcherProps {
-  className: string;
+  className?: string;
   page: number;
   productsPerPage: number;
   setPage: (page: number) => void;

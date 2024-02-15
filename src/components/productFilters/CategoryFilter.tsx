@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
 interface CategoryFilterProps {
-  className: string;
+  className?: string;
   category: string;
   setNewCategory: React.Dispatch<React.SetStateAction<string>>;
   setError: React.Dispatch<React.SetStateAction<string | null>>;
@@ -75,7 +75,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
         Categories
       </label>
       <button
-        className="flex w-full items-center justify-between px-4 py-2 leading-tight text-center text-gray-500 border border-gray-200 rounded-lg  bg-white disabled:bg-gray-100 enabled:hover:hover:bg-gray-100 enabled:hover:text-gray-700"
+        className="flex w-full items-center justify-between px-4 py-2 leading-tight text-center text-gray-500 border border-gray-200 rounded-lg bg-white disabled:bg-gray-100 enabled:hover:hover:bg-gray-100 enabled:hover:text-gray-700"
         id="category-button"
         onClick={toggleDropdown}
         disabled={categories.length === 0}
