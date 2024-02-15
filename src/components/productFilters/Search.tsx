@@ -14,18 +14,26 @@ const Search: React.FC<SearchProps> = ({
 }) => {
   const [inputValue, setInputValue] = useState<string>("");
   const search = async () => {
-    try {
-      const response = await fetch(
-        `https://dummyjson.com/products/search?q=${inputValue}`
-      );
-      const data = await response.json();
-      setProducts(data.products);
-    } catch (err) {
-      setError(
-        err instanceof Error
-          ? `Error fetching categories: ${err.message}`
-          : `Unexpected error: ${err}`
-      );
+    if (inputValue != "") {
+      try {
+        const response = await fetch(
+          `https://dummyjson.com/products/search?q=${inputValue}`
+        );
+        const data = await response.json();
+        setProducts(data.products);
+      } catch (err) {
+        setError(
+          err instanceof Error
+            ? `Error fetching categories: ${err.message}`
+            : `Unexpected error: ${err}`
+        );
+      }
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      search();
     }
   };
 
@@ -55,6 +63,7 @@ const Search: React.FC<SearchProps> = ({
         <input
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
+          onKeyPress={handleKeyPress}
           type="search"
           id="default-search"
           className="my-2 outline-none"

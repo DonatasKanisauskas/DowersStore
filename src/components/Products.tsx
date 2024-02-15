@@ -1,13 +1,13 @@
 import Product, { productType } from "./Product";
 import { useState, useEffect } from "react";
-import { useLocation, useParams, useNavigate } from "react-router-dom";
+import { useLocation, useParams, useNavigate, Link } from "react-router-dom";
 import Toast from "./Toast";
 import ProductsPerPageSwitcher from "./productFilters/ProductPerPageSwitcher";
 import CategoryFilter from "./productFilters/CategoryFilter";
 import Pagination from "./Pagination";
 import Search from "./productFilters/Search";
 
-export default function Products() {
+function Products() {
   const { category } = useParams();
   const { state, search } = useLocation();
   const navigate = useNavigate();
@@ -98,9 +98,17 @@ export default function Products() {
         ) : products instanceof Array && products.length > 0 ? (
           products.map((product) => <Product {...product} key={product.id} />)
         ) : (
-          <p className="w-full text-center self-center">
-            No products found on this page.
-          </p>
+          <div className=" flex flex-col gap-10 w-full justify-center items-center">
+            <p>No products found.</p>
+            <div>
+              <Link
+                to="/"
+                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+              >
+                Return home
+              </Link>
+            </div>
+          </div>
         )}
       </div>
 
@@ -113,3 +121,5 @@ export default function Products() {
     </>
   );
 }
+
+export default Products;
