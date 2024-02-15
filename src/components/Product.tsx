@@ -25,10 +25,10 @@ export default function Product(product: productType) {
 
   return (
     <>
-      <div className=" w-full max-w-xs bg-white border border-gray-200 rounded-lg shadow flex flex-col justify-between">
+      <div className="w-full p-5 max-w-xs bg-white border border-gray-200 rounded-lg shadow flex flex-col justify-between">
         {/* TOP */}
         <Link
-          className="h-[250px] px-5 pt-5 flex items-center"
+          className="h-[250px] flex items-center"
           to={"/products/" + product.id}
         >
           {product.thumbnail ? (
@@ -38,12 +38,12 @@ export default function Product(product: productType) {
               alt="product"
             />
           ) : (
-            <Star fill="black" />
+            <Star />
           )}
         </Link>
 
         {/* MID */}
-        <div className="px-5">
+        <div>
           {/* Title */}
           <Link to={"/products/" + product.id}>
             <h5 className="text-xl font-semibold tracking-tight text-gray-900">
@@ -55,7 +55,7 @@ export default function Product(product: productType) {
           <p className="tracking-tight text-gray-900">{product.description}</p>
 
           {/* Rating */}
-          <div className="flex items-center mt-2.5 mb-5">
+          <div className="flex items-center mt-2.5 mb-5 gap-4">
             {/* Rating Stars */}
             <StarRating rating={product.rating} />
 
@@ -67,7 +67,7 @@ export default function Product(product: productType) {
         </div>
 
         {/* BOT */}
-        <div className="px-5 pb-5">
+        <div>
           {/* Price and btn */}
           <div className="flex items-center justify-between">
             {/* Price */}
