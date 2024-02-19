@@ -14,20 +14,20 @@ const Search: React.FC<SearchProps> = ({
 }) => {
   const [inputValue, setInputValue] = useState<string>("");
   const search = async () => {
-    if (inputValue != "") {
-      try {
-        const response = await fetch(
-          `https://dummyjson.com/products/search?q=${inputValue}`
-        );
-        const data = await response.json();
-        setProducts(data.products);
-      } catch (err) {
-        setError(
-          err instanceof Error
-            ? `Error fetching categories: ${err.message}`
-            : `Unexpected error: ${err}`
-        );
-      }
+    try {
+      const response = await fetch(
+        `https://dummyjson.com/products${
+          inputValue && "/search?q=" + inputValue
+        }`
+      );
+      const data = await response.json();
+      setProducts(data.products);
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? `Error fetching categories: ${err.message}`
+          : `Unexpected error: ${err}`
+      );
     }
   };
 

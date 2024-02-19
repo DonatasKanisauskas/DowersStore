@@ -67,22 +67,22 @@ function Products() {
   return (
     <>
       {/* Product filters */}
-      <div className="flex flex-wrap justify-center sm:justify-end items-center gap-1 sm:gap-5 my-10 sm:m-10 ">
+      <div className="flex flex-wrap justify-center md:justify-end items-center gap-3 md:gap-5 my-10 sm:m-10 ">
         <Search
-          className="w-full max-w-xs sm:w-auto"
+          className="w-full max-w-xs md:w-auto"
           setProducts={setProducts}
           setError={setError}
         />
 
         <CategoryFilter
-          className="w-full max-w-xs sm:w-auto min-w-[160px]"
+          className="w-full max-w-xs md:w-auto min-w-[160px]"
           category={category || "All products"}
           setNewCategory={setNewCategory}
           setError={setError}
         />
 
         <ProductsPerPageSwitcher
-          className="w-full max-w-xs sm:w-auto"
+          className="w-full max-w-xs md:w-auto"
           page={page}
           productsPerPage={productsPerPage}
           setPage={setPage}
@@ -98,7 +98,7 @@ function Products() {
         ) : products instanceof Array && products.length > 0 ? (
           products.map((product) => <Product {...product} key={product.id} />)
         ) : (
-          <div className=" flex flex-col gap-10 w-full justify-center items-center">
+          <div className="flex flex-col gap-10 w-full justify-center items-center">
             <p>No products found.</p>
             <div>
               <Link
