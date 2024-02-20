@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { productType } from "../components/ProductType";
+import { productType } from "../types/ProductType";
 import React, { useEffect, useState } from "react";
 import logo from "/logo.svg";
 import StarRating from "../components/StarRating";

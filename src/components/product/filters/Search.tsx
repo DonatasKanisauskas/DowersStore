@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { productType } from "../../pages/Products/components/ProductCard";
+import { productType } from "../../../types/ProductType";
 
 interface SearchProps {
   className?: string;

@@ -1,14 +1,13 @@
-import Product from "./components/ProductCard";
 import { useState, useEffect } from "react";
 import { useLocation, useParams, useNavigate, Link } from "react-router-dom";
-import Pagination from "./components/Pagination";
-import { productType } from "../../components/ProductType";
-import Toast from "../../components/Toast";
+import { productType } from "../types/ProductType";
+import { ProductCard, Pagination } from "../components/product";
+import Toast from "../components/Toast";
 import {
   ProductsPerPageSwitcher,
   CategoryFilter,
   Search,
-} from "./components/productFilters";
+} from "../components/product/filters";
 
 function Products() {
   const { category } = useParams();
@@ -99,7 +98,9 @@ function Products() {
         {loading ? (
           <p className="w-full text-center self-center">Loading products...</p>
         ) : products instanceof Array && products.length > 0 ? (
-          products.map((product) => <Product {...product} key={product.id} />)
+          products.map((product) => (
+            <ProductCard {...product} key={product.id} />
+          ))
         ) : (
           <div className="flex flex-col gap-10 w-full justify-center items-center">
             <p>No products found.</p>

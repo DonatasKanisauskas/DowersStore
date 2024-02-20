@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import StarRating from "../../../components/StarRating";
-import Star from "../../../assets/Star";
-import { productType } from "../../../components/ProductType";
+import StarRating from "../StarRating";
+import Star from "../../assets/Star";
+import { productType } from "../../types/ProductType";
 
 function ProductCard(product: productType) {
   const addToCart = (product: productType) => {
