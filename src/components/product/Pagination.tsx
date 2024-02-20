@@ -7,12 +7,12 @@ interface PaginationProps {
   totalProducts: number;
 }
 
-const Pagination: React.FC<PaginationProps> = ({
+export default function Pagination({
   page,
   setPage,
   productsPerPage,
   totalProducts,
-}) => {
+}: PaginationProps) {
   const nextPage = () => {
     const nextPage = page + 1;
     const hasMorePages = productsPerPage * nextPage < totalProducts;
@@ -58,6 +58,4 @@ const Pagination: React.FC<PaginationProps> = ({
       </ul>
     </nav>
   );
-};
-
-export default Pagination;
+}

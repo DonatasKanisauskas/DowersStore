@@ -1,5 +1,3 @@
-import React from "react";
-
 interface ProductsPerPageSwitcherProps {
   className?: string;
   page: number;
@@ -8,13 +6,13 @@ interface ProductsPerPageSwitcherProps {
   setProductsPerPage: (perPage: number) => void;
 }
 
-const ProductsPerPageSwitcher: React.FC<ProductsPerPageSwitcherProps> = ({
+export default function ProductsPerPageSwitcher({
   className,
   page,
   productsPerPage,
   setPage,
   setProductsPerPage,
-}) => {
+}: ProductsPerPageSwitcherProps) {
   const changeProductsPerPage = (newProductsPerPage: number) => {
     const firstProductInPage = page * productsPerPage;
     const newPage = Math.floor(firstProductInPage / newProductsPerPage);
@@ -63,6 +61,4 @@ const ProductsPerPageSwitcher: React.FC<ProductsPerPageSwitcherProps> = ({
       </div>
     </div>
   );
-};
-
-export default ProductsPerPageSwitcher;
+}

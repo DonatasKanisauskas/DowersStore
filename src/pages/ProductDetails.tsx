@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import logo from "/logo.svg";
 import StarRating from "../components/StarRating";
 
-function ProductDetails() {
+export default function ProductDetails() {
   const { id } = useParams();
   const [product, setProduct] = useState<productType>();
   const [selectedImage, setSelectedImage] = useState<string>();
@@ -98,5 +98,3 @@ function ProductDetails() {
     </>
   );
 }
-
-export default ProductDetails;

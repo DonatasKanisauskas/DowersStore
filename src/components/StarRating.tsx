@@ -1,6 +1,6 @@
 import Star from "../assets/Star";
 
-export interface StarRatingProps {
+interface StarRatingProps {
   rating: number;
   primaryColor?: string;
   secondaryColor?: string;

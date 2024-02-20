@@ -7,11 +7,11 @@ interface SearchProps {
   setError: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-const Search: React.FC<SearchProps> = ({
+export default function Search({
   className,
   setProducts,
   setError,
-}) => {
+}: SearchProps) {
   const [inputValue, setInputValue] = useState<string>("");
   const search = async () => {
     try {
@@ -79,6 +79,4 @@ const Search: React.FC<SearchProps> = ({
       </div>
     </div>
   );
-};
-
-export default Search;
+}

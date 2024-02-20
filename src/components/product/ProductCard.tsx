@@ -3,7 +3,7 @@ import StarRating from "../StarRating";
 import Star from "../../assets/Star";
 import { productType } from "../../types/ProductType";
 
-function ProductCard(product: productType) {
+export default function ProductCard(product: productType) {
   const addToCart = (product: productType) => {
     console.log("adding", product.title, "to cart");
   };
@@ -73,5 +73,3 @@ function ProductCard(product: productType) {
     </>
   );
 }
-
-export default ProductCard;

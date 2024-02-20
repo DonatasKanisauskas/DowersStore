@@ -7,12 +7,12 @@ interface CategoryFilterProps {
   setError: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-const CategoryFilter: React.FC<CategoryFilterProps> = ({
+export default function CategoryFilter({
   className,
   category,
   setNewCategory,
   setError,
-}) => {
+}: CategoryFilterProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [categories, setCategories] = useState<string[]>([]);
@@ -134,6 +134,4 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
       )}
     </div>
   );
-};
-
-export default CategoryFilter;
+}

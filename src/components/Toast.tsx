@@ -7,7 +7,7 @@ interface ToastProps {
   setError: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-const Toast: React.FC<ToastProps> = ({ time, error, setError }) => {
+export default function Toast({ time, error, setError }: ToastProps) {
   const closePopUp = useCallback(() => {
     setError(null);
   }, [setError]);
@@ -65,6 +65,4 @@ const Toast: React.FC<ToastProps> = ({ time, error, setError }) => {
       </button>
     </div>
   );
-};
-
-export default Toast;
+}

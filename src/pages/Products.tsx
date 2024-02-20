@@ -9,7 +9,7 @@ import {
   Search,
 } from "../components/product/filters";
 
-function Products() {
+export default function Products() {
   const { category } = useParams();
   const { state, search } = useLocation();
   const navigate = useNavigate();
@@ -125,5 +125,3 @@ function Products() {
     </>
   );
 }
-
-export default Products;
