@@ -1,11 +1,14 @@
-import Product, { productType } from "./Product";
+import Product from "./components/ProductCard";
 import { useState, useEffect } from "react";
 import { useLocation, useParams, useNavigate, Link } from "react-router-dom";
-import Toast from "./Toast";
-import ProductsPerPageSwitcher from "./productFilters/ProductPerPageSwitcher";
-import CategoryFilter from "./productFilters/CategoryFilter";
-import Pagination from "./Pagination";
-import Search from "./productFilters/Search";
+import Pagination from "./components/Pagination";
+import { productType } from "../../components/ProductType";
+import Toast from "../../components/Toast";
+import {
+  ProductsPerPageSwitcher,
+  CategoryFilter,
+  Search,
+} from "./components/productFilters";
 
 function Products() {
   const { category } = useParams();

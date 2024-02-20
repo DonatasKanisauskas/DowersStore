@@ -1,10 +1,10 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { productType } from "./Product";
+import { productType } from "../components/ProductType";
 import React, { useEffect, useState } from "react";
 import logo from "/logo.svg";
-import StarRating from "./StarRating";
+import StarRating from "../components/StarRating";
 
-export default function ProductView() {
+function ProductDetails() {
   const { id } = useParams();
   const [product, setProduct] = useState<productType>();
   const [selectedImage, setSelectedImage] = useState<string>();
@@ -98,3 +98,5 @@ export default function ProductView() {
     </>
   );
 }
+
+export default ProductDetails;

@@ -1,24 +1,9 @@
 import { Link } from "react-router-dom";
-import StarRating from "./StarRating";
-import Star from "../assets/Star";
+import StarRating from "../../../components/StarRating";
+import Star from "../../../assets/Star";
+import { productType } from "../../../components/ProductType";
 
-export interface productType {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
-  discountPercentage: number;
-  rating: number;
-  stock: number;
-  brand: string;
-  category: string;
-  thumbnail: string;
-  images: [string, string, string, string];
-}
-
-export default function Product(product: productType) {
-  // console.log(product);
-
+function ProductCard(product: productType) {
   const addToCart = (product: productType) => {
     console.log("adding", product.title, "to cart");
   };
@@ -88,3 +73,5 @@ export default function Product(product: productType) {
     </>
   );
 }
+
+export default ProductCard;
