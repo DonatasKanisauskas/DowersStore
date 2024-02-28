@@ -1,7 +1,7 @@
 function Star({ className }: { className?: string }) {
   return (
     <svg
-      className={`w-4 ms-1 ${className}`}
+      className={`${className} w-4`}
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       fill="currentColor"
