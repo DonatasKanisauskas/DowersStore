@@ -4,12 +4,14 @@ import Header from "./layouts/Header";
 import Footer from "./layouts/Footer";
 import Cart from "./pages/Cart";
 import ProductDetails from "./pages/ProductDetails";
+import ScrollToTop from "./components/ScrollToTop";
 
 export default function App() {
   return (
     <>
       <BrowserRouter>
         <Header />
+        <ScrollToTop />
         <div className="container mx-auto px-4">
           <Routes>
             <Route path="/products" element={<Products />} />
