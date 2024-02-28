@@ -53,7 +53,7 @@ export default function ProductDetails() {
           />
 
           {/* RIGHT / BOTTOM */}
-          <div className="w-full flex flex-col justify-between lg:w-5/12 p-5 bg-gray-100">
+          <div className="w-full flex flex-col justify-between lg:w-5/12 p-5 bg-gray-100 rounded-md">
             {/* TOP */}
             <div className="flex flex-col gap-1">
               <div className="flex items-center flex-wrap justify-between my-5">

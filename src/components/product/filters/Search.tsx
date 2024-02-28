@@ -42,8 +42,8 @@ export default function Search({
       <label htmlFor="search" className="block font-medium text-gray-500">
         Search
       </label>
-      <div className="flex w-full items-center justify-between leading-tight text-center text-gray-500 border border-gray-200 rounded-lg bg-white">
-        <div className="ml-2 my-2 px-2">
+      <div className="flex w-full h-[35.5px] px-2 gap-2 items-center justify-between leading-tight text-center text-gray-500 border border-gray-200 rounded-lg bg-white">
+        <div className="px-1">
           <svg
             className="w-4 h-4 text-gray-500 dark:text-gray-400"
             aria-hidden="true"
@@ -66,12 +66,12 @@ export default function Search({
           onKeyPress={handleKeyPress}
           type="search"
           id="default-search"
-          className="my-2 outline-none"
+          className="outline-none"
           placeholder="Search for item..."
           required
         />
         <button
-          className="mr-2 my-1 py-1 px-2 rounded-md hover:bg-blue-50 hover:text-gray-700"
+          className="py-1 px-2 rounded-md hover:bg-blue-50 hover:text-gray-700"
           onClick={search}
         >
           Search

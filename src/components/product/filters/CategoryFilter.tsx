@@ -75,7 +75,7 @@ export default function CategoryFilter({
         Categories
       </label>
       <button
-        className="flex w-full items-center justify-between px-4 py-2 leading-tight text-center text-gray-500 border border-gray-200 rounded-lg bg-white disabled:bg-gray-100 enabled:hover:hover:bg-gray-100 enabled:hover:text-gray-700"
+        className="flex w-full items-center justify-between px-4 h-[35.5px] leading-tight text-center text-gray-500 border border-gray-200 rounded-lg bg-white disabled:bg-gray-100 enabled:hover:hover:bg-gray-100 enabled:hover:text-gray-700"
         id="category-button"
         onClick={toggleDropdown}
         disabled={categories.length === 0}
@@ -84,7 +84,7 @@ export default function CategoryFilter({
       >
         <span>{category}</span>
         <svg
-          className="w-2.5 h-2.5 ms-2.5"
+          className="w-2.5 h-2.5"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

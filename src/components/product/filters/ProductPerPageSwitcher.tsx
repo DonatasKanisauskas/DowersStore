@@ -6,6 +6,8 @@ interface ProductsPerPageSwitcherProps {
   setProductsPerPage: (perPage: number) => void;
 }
 
+const productsCount = [20, 30, 40];
+
 export default function ProductsPerPageSwitcher({
   className,
   page,
@@ -30,34 +32,23 @@ export default function ProductsPerPageSwitcher({
         Products per page
       </label>
       <div
-        className="flex w-full rounded-md -space-x-px"
+        className="flex h-[35.5px] w-full rounded-md -space-x-px"
         id="productsPerPage"
         role="group"
       >
-        <button
-          className={`px-4 py-2 w-full leading-tight text-gray-500 border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 ${
-            productsPerPage === 20 ? "bg-blue-50" : "bg-white"
-          }`}
-          onClick={() => changeProductsPerPage(20)}
-        >
-          20
-        </button>
-        <button
-          className={`px-4 py-2 w-full leading-tight text-gray-500 border border-gray-200 hover:bg-gray-100 hover:text-gray-700 ${
-            productsPerPage === 30 ? "bg-blue-50" : "bg-white"
-          }`}
-          onClick={() => changeProductsPerPage(30)}
-        >
-          30
-        </button>
-        <button
-          className={`px-4 py-2 w-full leading-tight text-gray-500 border border-gray-200 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 ${
-            productsPerPage === 40 ? "bg-blue-50" : "bg-white"
-          }`}
-          onClick={() => changeProductsPerPage(40)}
-        >
-          40
-        </button>
+        {productsCount.map((count, i) => (
+          <button
+            key={`products${count}`}
+            className={`px-4 w-full leading-tight text-gray-500 border border-gray-200 hover:bg-gray-100 hover:text-gray-700
+              ${productsPerPage === count ? "bg-blue-50" : "bg-white"}
+              ${i === 0 && "rounded-l-lg"}
+              ${productsCount.length - 1 === i && "rounded-r-lg"}
+            `}
+            onClick={() => changeProductsPerPage(count)}
+          >
+            {count}
+          </button>
+        ))}
       </div>
     </div>
   );

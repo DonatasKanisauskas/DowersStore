@@ -8,11 +8,11 @@ import ScrollToTop from "./components/ScrollToTop";
 
 export default function App() {
   return (
-    <>
+    <div className="flex flex-col gap-10">
       <BrowserRouter>
         <Header />
         <ScrollToTop />
-        <div className="container mx-auto px-4">
+        <div className="container flex flex-col gap-10 mx-auto px-4">
           <Routes>
             <Route path="/products" element={<Products />} />
             <Route path="/:category/products" element={<Products />} />
@@ -24,6 +24,6 @@ export default function App() {
         </div>
         <Footer />
       </BrowserRouter>
-    </>
+    </div>
   );
 }

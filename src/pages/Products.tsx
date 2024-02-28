@@ -69,7 +69,7 @@ export default function Products() {
   return (
     <>
       {/* Product filters */}
-      <div className="flex flex-wrap justify-center md:justify-end items-center gap-3 md:gap-5 my-10 sm:m-10 ">
+      <div className="flex flex-wrap justify-center md:justify-end items-center gap-3 md:gap-5 sm:mx-10">
         <Search
           className="w-full max-w-xs md:w-auto"
           setProducts={setProducts}
@@ -94,7 +94,7 @@ export default function Products() {
 
       {error && <Toast time={10} error={error} setError={setError} />}
 
-      <div className="flex flex-wrap justify-center mt-10 gap-3 sm:gap-5 min-h-[500px]">
+      <div className="flex flex-wrap justify-center gap-3 sm:gap-5 min-h-[500px]">
         {loading ? (
           <p className="w-full text-center self-center">Loading products...</p>
         ) : products instanceof Array && products.length > 0 ? (
