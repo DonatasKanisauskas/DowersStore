@@ -94,7 +94,7 @@ export default function Products() {
 
       {error && <Toast time={10} error={error} setError={setError} />}
 
-      <div className="flex flex-wrap justify-center gap-3 sm:gap-5 min-h-[500px]">
+      <div className="flex flex-wrap justify-center mt-10 gap-3 sm:gap-5 min-h-[500px]">
         {loading ? (
           <p className="w-full text-center self-center">Loading products...</p>
         ) : products instanceof Array && products.length > 0 ? (
