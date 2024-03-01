@@ -12,7 +12,7 @@ export default function App() {
       <BrowserRouter>
         <Header />
         <ScrollToTop />
-        <div className="container flex flex-col gap-10 mx-auto px-4">
+        <div className="container flex flex-col gap-10 mx-auto px-1 sm:px-4">
           <Routes>
             <Route path="/products" element={<Products />} />
             <Route path="/:category/products" element={<Products />} />
