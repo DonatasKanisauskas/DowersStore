@@ -1,4 +1,4 @@
-function HeartOutline({ className }: { className?: string }) {
+export default function HeartOutline({ className }: { className?: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -10,5 +10,3 @@ function HeartOutline({ className }: { className?: string }) {
     </svg>
   );
 }
-
-export default HeartOutline;

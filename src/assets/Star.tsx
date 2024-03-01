@@ -1,4 +1,4 @@
-function Star({ className }: { className?: string }) {
+export default function Star({ className }: { className?: string }) {
   return (
     <svg
       className={`${className} w-4`}
@@ -11,5 +11,3 @@ function Star({ className }: { className?: string }) {
     </svg>
   );
 }
-
-export default Star;
