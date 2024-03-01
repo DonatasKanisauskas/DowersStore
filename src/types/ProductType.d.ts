@@ -11,3 +11,14 @@ export interface productType {
   thumbnail: string;
   images: [string, string, string, string];
 }
+
+export interface cartProduct {
+  id: number;
+  title: string;
+  price: number;
+  quantity: number;
+  total: number;
+  discountPercentage: number;
+  discountedPrice: number;
+  thumbnail: string;
+}
