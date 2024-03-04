@@ -30,7 +30,7 @@ export default function Pagination({
   };
 
   return (
-    <nav className="flex justify-center m-10">
+    <nav className="flex justify-center">
       <ul className="flex -space-x-px text-sm shadow">
         <li>
           <button
