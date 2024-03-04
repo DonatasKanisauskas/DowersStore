@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { cartProduct } from "../types/ProductType";
 import { useEffect, useState } from "react";
 import Star from "../assets/Star";
@@ -6,30 +6,28 @@ import Cross from "../assets/Cross";
 import Button from "../components/Button";
 
 export default function Cart() {
-  // const { id } = useParams();
-  const id = 1;
   const shipmentPrice = 20;
   const [products, setProducts] = useState<cartProduct[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
-  const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  const removeFromCart = (product: cartProduct) => {
-    console.log(`removed, ${product.title}, from cart`);
+  const removeFromCart = (id: number) => {
+    setProducts((productList) =>
+      productList.filter((product) => product.id !== id)
+    );
   };
 
-  const updateQuantity = (
-    productId: number,
-    total: number,
-    quantity: number
-  ) => {
+  const updateQuantity = (id: number, quantity: number) => {
     const updatedQuantity = quantity > 0 ? quantity : 1;
 
-    setQuantities((prevQuantities) => ({
-      ...prevQuantities,
-      [productId]: quantity > total ? total : updatedQuantity,
-    }));
+    setProducts((prevProducts) =>
+      prevProducts.map((product) =>
+        product.id === id
+          ? { ...product, quantity: Math.min(updatedQuantity, product.total) }
+          : product
+      )
+    );
   };
 
   // Fetch cart products
@@ -37,14 +35,14 @@ export default function Cart() {
     const fetchProduct = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`https://dummyjson.com/carts/${id}`);
+        const response = await fetch(`https://dummyjson.com/carts/${1}`);
         const data = await response.json();
         if (data.message) {
           navigate("/", { state: data.message });
         } else {
           setProducts(data.products);
           data.products.map((product: cartProduct) =>
-            updateQuantity(product.id, product.total, product.quantity)
+            updateQuantity(product.id, product.quantity)
           );
         }
       } catch (err) {
@@ -56,16 +54,16 @@ export default function Cart() {
     };
 
     fetchProduct();
-  }, [id, navigate]);
+  }, [navigate]);
 
   // Update total price whenever quantities change
   useEffect(() => {
     let total = 0;
     products.forEach((product) => {
-      total += product.price * (quantities[product.id] || 0);
+      total += product.price * (product.quantity || 0);
     });
     setTotalPrice(total);
-  }, [products, quantities]);
+  }, [products]);
 
   const formatPrice = (price: number) => {
     if (Number.isInteger(price)) {
@@ -76,6 +74,10 @@ export default function Cart() {
         maximumFractionDigits: 2,
       });
     }
+  };
+
+  const checkOut = () => {
+    console.log("Checkout");
   };
 
   return (
@@ -109,7 +111,7 @@ export default function Cart() {
                     </h6>
                     <button
                       className="group text-gray-700 h-full bg-transparent rounded-md"
-                      onClick={() => removeFromCart(product)}
+                      onClick={() => removeFromCart(product.id)}
                     >
                       <Cross className="text-gray-400 group-hover:text-gray-500" />
                     </button>
@@ -121,14 +123,11 @@ export default function Cart() {
                       type="number"
                       min="1"
                       max={product.total}
-                      value={quantities[product.id]}
+                      value={product.quantity}
                       onChange={(e) =>
-                        updateQuantity(
-                          product.id,
-                          product.total,
-                          parseInt(e.target.value)
-                        )
+                        updateQuantity(product.id, parseInt(e.target.value))
                       }
+                      id={`quantity-${product.id}`}
                     />
                   </div>
                 </div>
@@ -141,9 +140,7 @@ export default function Cart() {
                   </div>
                   <div className="flex gap-1">
                     <p>total : </p>
-                    <p>
-                      ${formatPrice(product.price * quantities[product.id])}
-                    </p>
+                    <p>${formatPrice(product.price * product.quantity)}</p>
                   </div>
                 </div>
               </div>
@@ -155,33 +152,27 @@ export default function Cart() {
           <h1 className="font-semibold text-lg">Order summary</h1>
           <div className="grid grid-cols-1 divide-y">
             <div className="flex justify-between py-4">
-              <label htmlFor="subtotal">Subtotal</label>
-              <p id="subtotal" className="font-medium">
-                ${formatPrice(totalPrice)}
-              </p>
+              <p>Subtotal</p>
+              <p className="font-medium">${formatPrice(totalPrice)}</p>
             </div>
             <div className="flex justify-between py-4">
-              <label htmlFor="subtotal">Shipping estimate</label>
-              <p id="subtotal" className="font-medium">
-                ${formatPrice(shipmentPrice)}
-              </p>
+              <p>Shipping estimate</p>
+              <p className="font-medium">${formatPrice(shipmentPrice)}</p>
             </div>
             <div className="flex justify-between py-4">
-              <label htmlFor="subtotal">Tax estimate</label>
-              <p id="subtotal" className="font-medium">
-                ${formatPrice(totalPrice * 0.15)}
-              </p>
+              <p>Tax estimate</p>
+              <p className="font-medium">${formatPrice(totalPrice * 0.15)}</p>
             </div>
             <div className="flex justify-between py-4">
-              <label htmlFor="subtotal " className="font-medium">
-                Order total
-              </label>
-              <p id="subtotal" className="font-medium">
+              <p className="font-medium">Order total</p>
+              <p className="font-medium">
                 ${formatPrice(totalPrice * 1.15 + shipmentPrice)}
               </p>
             </div>
           </div>
-          <Button className="w-full">Checkout</Button>
+          <Button className="w-full" onClick={() => checkOut()}>
+            Checkout
+          </Button>
         </div>
       </div>
     </div>
