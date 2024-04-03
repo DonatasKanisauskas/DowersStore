@@ -21,7 +21,9 @@ export default function ProductDetails() {
     const fetchProduct = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`https://dummyjson.com/products/${id}`);
+        const response = await fetch(
+          `https://webstorejs.azurewebsites.net/api/products/${id}`
+        );
         const data = await response.json();
         if (data.message) {
           navigate("/", { state: data.message });

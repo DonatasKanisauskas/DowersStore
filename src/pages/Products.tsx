@@ -33,11 +33,6 @@ export default function Products() {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        // const response = await fetch(
-        //   `https://dummyjson.com/products${
-        //     category ? "/category/" + category : ""
-        //   }?skip=${productsPerPage * page}&limit=${productsPerPage}`
-        // );
         const response = await fetch(
           `https://webstorejs.azurewebsites.net/api/products?skip=${
             productsPerPage * page
