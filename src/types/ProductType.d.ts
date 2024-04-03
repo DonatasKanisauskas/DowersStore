@@ -5,11 +5,11 @@ export interface productType {
   price: number;
   discountPercentage: number;
   rating: number;
-  stock: number;
+  stock?: number;
   brand: string;
   category: string;
   thumbnail: string;
-  images: [string, string, string, string];
+  images?: [string, string, string, string];
 }
 
 export interface cartProduct {

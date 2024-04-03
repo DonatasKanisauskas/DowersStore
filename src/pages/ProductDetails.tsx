@@ -2,14 +2,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { productType } from "../types/ProductType";
 import { useEffect, useState } from "react";
 import StarRating from "../components/StarRating";
-import Carousel from "../components/Carousel";
+// import Carousel from "../components/Carousel";
 import Button from "../components/Button";
 import HeartOutline from "../assets/HeartOutline";
 
 export default function ProductDetails() {
   const { id } = useParams();
   const [product, setProduct] = useState<productType>();
-  const [selectedImage, setSelectedImage] = useState<number>(0);
+  // const [selectedImage, setSelectedImage] = useState<number>(0);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -47,12 +47,12 @@ export default function ProductDetails() {
       {id && product && (
         <div className="flex flex-wrap 2xl:mx-40">
           {/* LEFT / TOP */}
-          <Carousel
+          {/* <Carousel
             images={product.images}
             selectedImage={selectedImage}
             setSelectedImage={setSelectedImage}
             className="w-full lg:w-7/12"
-          />
+          /> */}
 
           {/* RIGHT / BOTTOM */}
           <div className="w-full flex flex-col justify-between lg:w-5/12 p-5 bg-gray-100 rounded-md">
@@ -68,7 +68,7 @@ export default function ProductDetails() {
 
               <div className="flex gap-1">
                 <p className="font-bold">stock :</p>
-                <p>{product.stock}</p>
+                {/* <p>{product.stock}</p> */}
               </div>
 
               <div className="flex my-1">
