@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { cartProduct } from "../types/ProductType";
 import { useEffect, useState } from "react";
-import Star from "../assets/Star";
 import Cross from "../assets/Cross";
 import Button from "../components/Button";
 
@@ -90,15 +89,14 @@ export default function Cart() {
               {/* LEFT */}
               <div className="w-40 h-full flex items-center justify-center">
                 {/* LEFT / TOP */}
-                {product.thumbnail ? (
-                  <img
-                    className="max-h-full max-w-full"
-                    src={product.thumbnail}
-                    alt="product"
-                  />
-                ) : (
-                  <Star />
-                )}
+                <img
+                  className="max-h-full max-w-full"
+                  src={
+                    product.thumbnail ||
+                    "https://static.vecteezy.com/system/resources/thumbnails/022/059/000/small/no-image-available-icon-vector.jpg"
+                  }
+                  alt="product"
+                />
               </div>
 
               {/* RIGHT */}
