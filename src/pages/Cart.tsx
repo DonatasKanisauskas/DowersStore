@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { cartProduct } from "../types/ProductType";
 import { useEffect, useState } from "react";
 import Cross from "../assets/Cross";
@@ -104,9 +104,12 @@ export default function Cart() {
                 {/* TOP */}
                 <div>
                   <div className="flex flex-row justify-between items-center">
-                    <h6 className="font-medium overflow-hidden max-h-[24px] overflow-y-hidden">
+                    <Link
+                      className="font-medium overflow-hidden max-h-[24px] overflow-y-hidden"
+                      to={"/products/" + product.id}
+                    >
                       {product.title}
-                    </h6>
+                    </Link>
                     <button
                       className="group text-gray-700 h-full bg-transparent rounded-md"
                       onClick={() => removeFromCart(product.id)}
