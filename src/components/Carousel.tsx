@@ -1,12 +1,14 @@
 interface carouselProps {
-  images: string[];
+  images?: string[];
   selectedImage: number;
   setSelectedImage: React.Dispatch<React.SetStateAction<number>>;
   className: string;
 }
 
 export default function Carousel({
-  images,
+  images = [
+    "https://static.vecteezy.com/system/resources/thumbnails/022/059/000/small/no-image-available-icon-vector.jpg",
+  ],
   selectedImage,
   setSelectedImage,
   className,
