@@ -13,8 +13,15 @@ export default function ProductDetails() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  const addToCart = (product: productType) => {
-    console.log("adding", product.title, "to cart");
+  const addToCart = async (id: number) => {
+    try {
+      await fetch(
+        `https://webstorejs.azurewebsites.net/api/cart/${1}/addProduct?productId=${id}&quantity=1`
+      );
+    } catch (err) {
+      const ErrorMsg = err instanceof Error ? err.message : err;
+      navigate("/", { state: ErrorMsg });
+    }
   };
 
   useEffect(() => {
@@ -81,7 +88,7 @@ export default function ProductDetails() {
             <div className="flex gap-3 mt-10">
               <Button
                 className="w-full"
-                onClick={() => addToCart(product)}
+                onClick={() => addToCart(product.id)}
                 value="Add to cart"
               />
               <Button
