@@ -34,7 +34,9 @@ export default function Cart() {
     const fetchProduct = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`https://dummyjson.com/carts/${1}`);
+        const response = await fetch(
+          `https://webstorejs.azurewebsites.net/api/cart/${1}`
+        );
         const data = await response.json();
         if (data.message) {
           navigate("/", { state: data.message });
