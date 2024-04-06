@@ -12,7 +12,6 @@ export default function Cart() {
   const navigate = useNavigate();
 
   const removeFromCart = async (id: number) => {
-    console.log(id);
     try {
       await fetch(
         `https://webstorejs.azurewebsites.net/api/cart/${1}/removeProduct?productId=${id}`
