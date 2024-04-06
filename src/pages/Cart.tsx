@@ -11,10 +11,19 @@ export default function Cart() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  const removeFromCart = (id: number) => {
-    setProducts((productList) =>
-      productList.filter((product) => product.id !== id)
-    );
+  const removeFromCart = async (id: number) => {
+    try {
+      await fetch(
+        `https://webstorejs.azurewebsites.net/api/cart/${1}/removeProduct&productId=${id}`
+      );
+    } catch (err) {
+      const ErrorMsg = err instanceof Error ? err.message : err;
+      navigate("/cart", { state: ErrorMsg });
+    } finally {
+      setProducts((productList) =>
+        productList.filter((product) => product.id !== id)
+      );
+    }
   };
 
   const updateQuantity = (id: number, quantity: number) => {
