@@ -26,8 +26,8 @@ export default function Cart() {
     }
   };
 
-  const updateQuantity = (id: number, quantity: number) => {
-    const updatedQuantity = quantity > 0 ? quantity : 1;
+  const updateQuantity = (id: number, stock: number, quantity: number) => {
+    const updatedQuantity = quantity > stock ? stock : Math.max(quantity, 1);
 
     setProducts((prevProducts) =>
       prevProducts.map((product) =>
@@ -133,7 +133,11 @@ export default function Cart() {
                       max={product.total}
                       value={product.quantity}
                       onChange={(e) =>
-                        updateQuantity(product.id, parseInt(e.target.value))
+                        updateQuantity(
+                          product.id,
+                          product.stock,
+                          parseInt(e.target.value)
+                        )
                       }
                       id={`quantity-${product.id}`}
                     />

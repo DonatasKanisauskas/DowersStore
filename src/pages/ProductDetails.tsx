@@ -11,17 +11,24 @@ export default function ProductDetails() {
   const [product, setProduct] = useState<productType>();
   const [selectedImage, setSelectedImage] = useState<number>(0);
   const [loading, setLoading] = useState(true);
+  const [quantity, setQuantity] = useState<number>(1);
   const navigate = useNavigate();
 
-  const addToCart = async (id: number) => {
+  const addToCart = async (id: number, quantity: number) => {
     try {
       await fetch(
-        `https://webstorejs.azurewebsites.net/api/cart/${1}/addProduct?productId=${id}&quantity=1`
+        `https://webstorejs.azurewebsites.net/api/cart/${1}/addProduct?productId=${id}&quantity=${quantity}`
       );
     } catch (err) {
       const ErrorMsg = err instanceof Error ? err.message : err;
       navigate("/", { state: ErrorMsg });
     }
+  };
+
+  const updateQuantity = (stock: number, quantity: number) => {
+    const updatedQuantity = quantity > stock ? stock : Math.max(quantity, 1);
+
+    setQuantity(updatedQuantity);
   };
 
   useEffect(() => {
@@ -74,8 +81,22 @@ export default function ProductDetails() {
               <p className="py-2">{product.description}</p>
 
               <div className="flex gap-1">
-                <p className="font-bold">stock :</p>
+                <p className="font-semibold">stock :</p>
                 <p>{product.stock}</p>
+              </div>
+
+              <div className="flex gap-1">
+                <p className="font-semibold">quantity :</p>
+                <input
+                  type="number"
+                  min="1"
+                  max={product.stock}
+                  value={quantity}
+                  id={`quantity-${product.id}`}
+                  onChange={(e) =>
+                    updateQuantity(product.stock, parseInt(e.target.value))
+                  }
+                />
               </div>
 
               <div className="flex my-1">
@@ -88,7 +109,7 @@ export default function ProductDetails() {
             <div className="flex gap-3 mt-10">
               <Button
                 className="w-full"
-                onClick={() => addToCart(product.id)}
+                onClick={() => addToCart(product.id, quantity)}
                 value="Add to cart"
               />
               <Button

@@ -16,6 +16,7 @@ export interface cartProduct {
   id: number;
   title: string;
   price: number;
+  stock: number;
   quantity: number;
   total: number;
   discountPercentage: number;
