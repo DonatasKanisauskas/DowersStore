@@ -5,7 +5,7 @@ import Cross from "../assets/Cross";
 import Button from "../components/Button";
 
 export default function Cart() {
-  const shipmentPrice = 20;
+  const [shipmentPrice, setShipmentPrice] = useState<number>(0);
   const [products, setProducts] = useState<cartProduct[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [loading, setLoading] = useState(true);
@@ -31,9 +31,7 @@ export default function Cart() {
 
     setProducts((prevProducts) =>
       prevProducts.map((product) =>
-        product.id === id
-          ? { ...product, quantity: Math.min(updatedQuantity, product.total) }
-          : product
+        product.id === id ? { ...product, quantity: updatedQuantity } : product
       )
     );
   };
@@ -47,15 +45,10 @@ export default function Cart() {
           `https://webstorejs.azurewebsites.net/api/cart/${1}`
         );
         const data = await response.json();
-        console.log(data.products);
-        console.log(data.products[0].quantity);
         if (data.message) {
           navigate("/", { state: data.message });
         } else {
           setProducts(data.products);
-          data.products.map((product: cartProduct) =>
-            updateQuantity(product.id, product.quantity)
-          );
         }
       } catch (err) {
         const ErrorMsg = err instanceof Error ? err.message : err;
@@ -68,13 +61,14 @@ export default function Cart() {
     fetchProduct();
   }, [navigate]);
 
-  // Update total price whenever quantities change
+  // Update total and shipment price whenever quantities change
   useEffect(() => {
     let total = 0;
     products.forEach((product) => {
       total += product.price * (product.quantity || 0);
     });
     setTotalPrice(total);
+    setShipmentPrice(products.length > 0 ? 20 : 0);
   }, [products]);
 
   const formatPrice = (price: number) => {
@@ -96,9 +90,9 @@ export default function Cart() {
     <div className="container flex flex-row flex-wrap lg:flex-nowrap gap-10">
       {loading && <>Loading data...</>}
       <div className="w-full grid grid-cols-1 divide-y">
-        {products.length !== 0 &&
+        {products.length > 0 ? (
           products.map((product, i) => (
-            <div key={i} className={`flex gap-3 py-2 px-5 h-40`}>
+            <div key={i} className="flex gap-3 py-2 px-5 h-40">
               {/* LEFT */}
               <div className="w-40 h-full flex items-center justify-center">
                 {/* LEFT / TOP */}
@@ -131,9 +125,8 @@ export default function Cart() {
                     </button>
                   </div>
 
-                  <p>{JSON.stringify(product)}</p>
                   <div className="flex gap-1">
-                    <p>quantity : {product.quantity}</p>
+                    <p>quantity :</p>
                     <input
                       type="number"
                       min="1"
@@ -160,7 +153,19 @@ export default function Cart() {
                 </div>
               </div>
             </div>
-          ))}
+          ))
+        ) : (
+          <div className="flex flex-col gap-5 w-full justify-center items-center">
+            <h1 className="text-xl font-semibold">Nothing in your cart yet!</h1>
+            <p>Let's find you some great products to add.</p>
+            <Link
+              to="/"
+              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            >
+              Start shopping now
+            </Link>
+          </div>
+        )}
       </div>
       <div className="w-full lg:7/12 xl:w-6/12">
         <div className="flex flex-col gap-4 px-8 py-7 bg-gray-50 rounded-lg">
@@ -185,7 +190,11 @@ export default function Cart() {
               </p>
             </div>
           </div>
-          <Button className="w-full" onClick={() => checkOut()}>
+          <Button
+            className="w-full"
+            onClick={() => checkOut()}
+            disabled={products.length === 0}
+          >
             Checkout
           </Button>
         </div>
