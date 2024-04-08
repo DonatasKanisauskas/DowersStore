@@ -131,8 +131,9 @@ export default function Cart() {
                     </button>
                   </div>
 
+                  <p>{JSON.stringify(product)}</p>
                   <div className="flex gap-1">
-                    <p>quantity :</p>
+                    <p>quantity : {product.quantity}</p>
                     <input
                       type="number"
                       min="1"
