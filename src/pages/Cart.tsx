@@ -47,6 +47,8 @@ export default function Cart() {
           `https://webstorejs.azurewebsites.net/api/cart/${1}`
         );
         const data = await response.json();
+        console.log(data.products);
+        console.log(data.products[0].quantity);
         if (data.message) {
           navigate("/", { state: data.message });
         } else {
