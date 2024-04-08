@@ -18,7 +18,7 @@ export default function Button({
   return (
     <button
       onClick={onClick}
-      className={`${fontColor} ${className} bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center`}
+      className={`${fontColor} ${className} bg-blue-700 enabled:hover:bg-blue-800 disabled:bg-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center`}
       disabled={disabled}
     >
       {children}
