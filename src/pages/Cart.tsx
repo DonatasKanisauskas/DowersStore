@@ -64,7 +64,7 @@ export default function Cart() {
   const handleQuantityBlur = async (id: number, quantity: number) => {
     try {
       const response = await fetch(
-        `http://webstorejs.azurewebsites.net/api/cart/1/updateCartProducts`,
+        `https://webstorejs.azurewebsites.net/api/cart/1/updateCartProducts`,
         {
           method: "POST",
           body: JSON.stringify([{ id: id, quantity: quantity }]),
