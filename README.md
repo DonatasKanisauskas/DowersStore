@@ -1,4 +1,6 @@
-<h1>React Shop <a href="https://salmon-ground-0a10f7303.5.azurestaticapps.net" style="float:right; font-size: 1.2rem; line-height: 2.5;">Live Demo</a></h1>
+<p align="right"><a href="https://salmon-ground-0a10f7303.5.azurestaticapps.net">Live Demo</a></p>
+
+# React Shop
 
 A modern e-commerce website showcasing frontend development skills, built with Vite, React, TypeScript, and Tailwind CSS. This project interacts with a backend powered by Azure Functions and Azure SQL Database.
 
