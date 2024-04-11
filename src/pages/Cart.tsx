@@ -61,6 +61,22 @@ export default function Cart() {
     fetchProduct();
   }, [navigate]);
 
+  const handleQuantityBlur = async (id: number, quantity: number) => {
+    try {
+      const response = await fetch(
+        `http://webstorejs.azurewebsites.net/api/cart/1/updateCartProducts`,
+        {
+          method: "POST",
+          body: JSON.stringify([{ id: id, quantity: quantity }]),
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   // Update total and shipment price whenever quantities change
   useEffect(() => {
     let total = 0;
@@ -140,6 +156,9 @@ export default function Cart() {
                         )
                       }
                       id={`quantity-${product.id}`}
+                      onBlur={() =>
+                        handleQuantityBlur(product.id, product.quantity)
+                      }
                     />
                   </div>
                 </div>
