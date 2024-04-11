@@ -1,6 +1,6 @@
-# React shop
+# React Shop <span style=" line-height: 2.5; float:right; font-size: 1.2rem;">[Live Demo](https://salmon-ground-0a10f7303.5.azurestaticapps.net)</span>
 
-A modern website built with Vite, React, TypeScript, and Tailwind CSS. This project utilizes a fake API to display products for demonstration purposes.
+A modern e-commerce website showcasing frontend development skills, built with Vite, React, TypeScript, and Tailwind CSS. This project interacts with a backend powered by Azure Functions and Azure SQL Database.
 
 ## Table of Contents
 
@@ -8,49 +8,63 @@ A modern website built with Vite, React, TypeScript, and Tailwind CSS. This proj
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
+- [Live Demo](#live-demo)
 - [License](#license)
 
 ## Features
 
-- Responsive design with Tailwind CSS for a seamless user experience.
-- Integration of a fake API to simulate product data.
-- Developed using Vite, React, and TypeScript for a fast and efficient development environment.
+- **Responsive Design**: Crafted with Tailwind CSS for a seamless user experience.
+- **Azure Integration**: Backend powered by Azure Functions for API services, and Azure SQL Database for data storage.
+- **Modern Technologies**: Developed using Vite, React, and TypeScript for efficient development and maintenance.
 
 ## Installation
 
-1. Clone the repository:
+1. **Clone the Repository:**
 
    ```bash
    git clone https://github.com/DonatasKanisauskas/react-shop.git
    cd react-shop
    ```
 
-2. Install dependencies:
-
+2. **Install Dependencies:**
    ```bash
    npm install
    ```
 
 ## Usage
 
-1. Start the development server:
+1. **Start the Development Server:**
 
    ```bash
    npm run dev
    ```
 
-2. Open your browser and navigate to [http://localhost:3000](http://localhost:3000) to view the webstore.
+2. **Access the Website:**
+   Once the development server is running, copy the provided URL output and paste it into your web browser's address bar to access the webstore.
 
 ## Contributing
 
 Contributions are welcome! Please follow these steps:
 
-1. Fork the repository.
-2. Create a new branch: `git checkout -b feature/your-feature`.
-3. Commit your changes: `git commit -m 'Add some feature'`.
-4. Push to the branch: `git push origin feature/your-feature`.
-5. Submit a pull request.
+1. **Fork the Repository.**
+2. **Create a New Branch:**
+   ```bash
+   git checkout -b feature/your-feature
+   ```
+3. **Commit Your Changes:**
+   ```bash
+   git commit -m 'Add some feature'
+   ```
+4. **Push to the Branch:**
+   ```bash
+   git push origin feature/your-feature
+   ```
+5. **Submit a Pull Request.**
+
+## Live Demo
+
+Check out the live website hosted on Azure Static Web Apps: [ReactShop](https://salmon-ground-0a10f7303.5.azurestaticapps.net)
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is open-source and available under the MIT License. Attribution is appreciated if you choose to use this project.
