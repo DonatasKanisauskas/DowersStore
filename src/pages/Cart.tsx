@@ -104,89 +104,99 @@ export default function Cart() {
 
   return (
     <div className="container flex flex-row flex-wrap lg:flex-nowrap gap-10">
-      {loading && <>Loading data...</>}
-      <div className="w-full grid grid-cols-1 divide-y">
-        {products.length > 0 ? (
-          products.map((product, i) => (
-            <div key={i} className="flex gap-3 py-2 px-5 h-40">
-              {/* LEFT */}
-              <div className="w-40 h-full flex items-center justify-center">
-                {/* LEFT / TOP */}
-                <img
-                  className="max-h-full max-w-full"
-                  src={
-                    product.thumbnail ||
-                    "https://static.vecteezy.com/system/resources/thumbnails/022/059/000/small/no-image-available-icon-vector.jpg"
-                  }
-                  alt="product"
-                />
-              </div>
-
-              {/* RIGHT */}
-              <div className="w-full flex flex-col gap-1 py-2 justify-between">
-                {/* TOP */}
-                <div>
-                  <div className="flex flex-row justify-between items-center">
-                    <Link
-                      className="font-medium overflow-hidden max-h-[24px] overflow-y-hidden"
-                      to={"/products/" + product.id}
-                    >
-                      {product.title}
-                    </Link>
-                    <button
-                      className="group text-gray-700 h-full bg-transparent rounded-md"
-                      onClick={() => removeFromCart(product.id)}
-                    >
-                      <Cross className="text-gray-400 group-hover:text-gray-500" />
-                    </button>
-                  </div>
-
-                  <div className="flex gap-1">
-                    <p>quantity :</p>
-                    <input
-                      type="number"
-                      min="1"
-                      max={product.total}
-                      value={product.quantity}
-                      onChange={(e) =>
-                        updateQuantity(
-                          product.id,
-                          product.stock,
-                          parseInt(e.target.value)
-                        )
+      <div className="w-full flex flex-col">
+        <h1 className="font-semibold text-2xl mb-3">Shopping Cart</h1>
+        {loading ? (
+          <div className="h-full flex justify-center items-center">
+            <h1 className="font-semibold">Loading Cart data...</h1>
+          </div>
+        ) : (
+          <div className="w-full divide-y">
+            {products.length > 0 ? (
+              products.map((product, i) => (
+                <div key={i} className="flex gap-3 py-2 px-5 h-40">
+                  {/* LEFT */}
+                  <div className="w-40 h-full flex items-center justify-center">
+                    {/* LEFT / TOP */}
+                    <img
+                      className="max-h-full max-w-full"
+                      src={
+                        product.thumbnail ||
+                        "https://static.vecteezy.com/system/resources/thumbnails/022/059/000/small/no-image-available-icon-vector.jpg"
                       }
-                      id={`quantity-${product.id}`}
-                      onBlur={() =>
-                        handleQuantityBlur(product.id, product.quantity)
-                      }
+                      alt="product"
                     />
                   </div>
-                </div>
 
-                {/* BOTTOM */}
-                <div className="flex flex-col md:flex-row items-end md:justify-between">
-                  <div className="flex gap-1">
-                    <p>product price : </p>
-                    <p>${formatPrice(product.price)}</p>
-                  </div>
-                  <div className="flex gap-1">
-                    <p>total : </p>
-                    <p>${formatPrice(product.price * product.quantity)}</p>
+                  {/* RIGHT */}
+                  <div className="w-full flex flex-col gap-1 py-2 justify-between">
+                    {/* TOP */}
+                    <div>
+                      <div className="flex flex-row justify-between items-center">
+                        <Link
+                          className="font-medium overflow-hidden max-h-[24px] overflow-y-hidden"
+                          to={"/products/" + product.id}
+                        >
+                          {product.title}
+                        </Link>
+                        <button
+                          className="group text-gray-700 h-full bg-transparent rounded-md"
+                          onClick={() => removeFromCart(product.id)}
+                        >
+                          <Cross className="text-gray-400 group-hover:text-gray-500" />
+                        </button>
+                      </div>
+
+                      <div className="flex gap-1">
+                        <p>quantity :</p>
+                        <input
+                          type="number"
+                          min="1"
+                          max={product.stock}
+                          value={product.quantity}
+                          id={`quantity-${product.id}`}
+                          onChange={(e) =>
+                            updateQuantity(
+                              product.id,
+                              product.stock,
+                              parseInt(e.target.value)
+                            )
+                          }
+                          onBlur={() =>
+                            handleQuantityBlur(product.id, product.quantity)
+                          }
+                        />
+                      </div>
+                    </div>
+
+                    {/* BOTTOM */}
+                    <div className="flex flex-col md:flex-row items-end md:justify-between">
+                      <div className="flex gap-1">
+                        <p>product price : </p>
+                        <p>${formatPrice(product.price)}</p>
+                      </div>
+                      <div className="flex gap-1">
+                        <p>total : </p>
+                        <p>${formatPrice(product.price * product.quantity)}</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
+              ))
+            ) : (
+              <div className="flex flex-col gap-5 w-full justify-center items-center">
+                <h1 className="text-xl font-semibold">
+                  Nothing in your cart yet!
+                </h1>
+                <p>Let's find you some great products to add.</p>
+                <Link
+                  to="/"
+                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                >
+                  Start shopping now
+                </Link>
               </div>
-            </div>
-          ))
-        ) : (
-          <div className="flex flex-col gap-5 w-full justify-center items-center">
-            <h1 className="text-xl font-semibold">Nothing in your cart yet!</h1>
-            <p>Let's find you some great products to add.</p>
-            <Link
-              to="/"
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-            >
-              Start shopping now
-            </Link>
+            )}
           </div>
         )}
       </div>
