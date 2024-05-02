@@ -1,29 +1,42 @@
-import { useCallback, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface ToastProps {
-  /** Time in seconds */
-  time: number;
-  error: string;
-  setError: React.Dispatch<React.SetStateAction<string | null>>;
+  id: number;
+  status: string;
+  message: string;
+  removeToast: (id: number) => void;
 }
 
-export default function Toast({ time, error, setError }: ToastProps) {
-  const closePopUp = useCallback(() => {
-    setError(null);
-  }, [setError]);
+export default function Toast({ id, message, removeToast }: ToastProps) {
+  const [slideIn, setSlideIn] = useState(false);
+  const [fadeOut, setfadeOut] = useState(false);
+
+  const closeToast = () => {
+    setSlideIn(false);
+    setTimeout(() => {
+      setfadeOut(true);
+    }, 300);
+    setTimeout(() => {
+      removeToast(id);
+    }, 600);
+  };
 
   useEffect(() => {
+    setSlideIn(true);
     const timeoutId = setTimeout(() => {
-      closePopUp();
-    }, 1000 * time);
-
-    return () => clearTimeout(timeoutId);
-  }, [closePopUp, time]);
+      closeToast();
+    }, 5000);
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
 
   return (
     <div
       id="toast-danger"
-      className="fixed top-10 right-5 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow"
+      className={`flex items-center w-full max-w-xs text-gray-500 bg-white rounded-lg shadow relative transition-all duration-300 transform ease-linear p-4 m-1 ${
+        fadeOut ? "h-0 m-0 p-0" : "h-[64px]"
+      } ${slideIn ? "left-0" : "left-96"}`}
       role="alert"
     >
       <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg">
@@ -38,22 +51,18 @@ export default function Toast({ time, error, setError }: ToastProps) {
         </svg>
         <span className="sr-only">Error icon</span>
       </div>
-      <div className="ms-3 text-sm font-normal">{error}</div>
+      <div className="px-3 text-sm font-normal w-full">
+        <p className="line-clamp-2">{message}</p>
+      </div>
       <button
         type="button"
-        className="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8"
+        className="-mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8"
         data-dismiss-target="#toast-danger"
         aria-label="Close"
-        onClick={closePopUp}
+        onClick={closeToast}
       >
         <span className="sr-only">Close</span>
-        <svg
-          className="w-3 h-3"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 14 14"
-        >
+        <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
           <path
             stroke="currentColor"
             strokeLinecap="round"

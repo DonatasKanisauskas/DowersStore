@@ -5,8 +5,10 @@ import StarRating from "../components/StarRating";
 import Carousel from "../components/Carousel";
 import Button from "../components/Button";
 import HeartOutline from "../assets/HeartOutline";
+import { useToast } from "../components/ToastContext";
 
 export default function ProductDetails() {
+  const { createToast, updateToast } = useToast();
   const { id } = useParams();
   const [product, setProduct] = useState<productType>();
   const [selectedImage, setSelectedImage] = useState<number>(0);
@@ -15,13 +17,13 @@ export default function ProductDetails() {
   const navigate = useNavigate();
 
   const addToCart = async (id: number, quantity: number) => {
+    const toastID = createToast("notification", "Adding product to cart...");
     try {
-      await fetch(
-        `https://webstorejs.azurewebsites.net/api/cart/${1}/addProduct?productId=${id}&quantity=${quantity}`
-      );
+      await fetch(`https://webstorejs.azurewebsites.net/api/cart/${1}/addProduct?productId=${id}&quantity=${quantity}`);
     } catch (err) {
-      const ErrorMsg = err instanceof Error ? err.message : err;
-      navigate("/", { state: ErrorMsg });
+      updateToast(toastID, "error", `${err instanceof Error ? err.message : err}`);
+    } finally {
+      updateToast(toastID, "success", "Product added to cart");
     }
   };
 
@@ -35,9 +37,7 @@ export default function ProductDetails() {
     const fetchProduct = async () => {
       setLoading(true);
       try {
-        const response = await fetch(
-          `https://webstorejs.azurewebsites.net/api/products/${id}`
-        );
+        const response = await fetch(`https://webstorejs.azurewebsites.net/api/products/${id}`);
         const data = await response.json();
         if (data.message) {
           navigate("/", { state: data.message });
@@ -93,9 +93,7 @@ export default function ProductDetails() {
                   max={product.stock}
                   value={quantity}
                   id={`quantity-${product.id}`}
-                  onChange={(e) =>
-                    updateQuantity(product.stock, parseInt(e.target.value))
-                  }
+                  onChange={(e) => updateQuantity(product.stock, parseInt(e.target.value))}
                 />
               </div>
 
@@ -107,11 +105,7 @@ export default function ProductDetails() {
 
             {/* BOTTOM */}
             <div className="flex gap-3 mt-10">
-              <Button
-                className="w-full"
-                onClick={() => addToCart(product.id, quantity)}
-                value="Add to cart"
-              />
+              <Button className="w-full" onClick={() => addToCart(product.id, quantity)} value="Add to cart" />
               <Button
                 className="h-full bg-transparent border border-gray-400 hover:bg-gray-200"
                 onClick={() => console.log("liked")}
