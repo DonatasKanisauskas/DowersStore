@@ -3,6 +3,7 @@ import { cartProduct } from "../types/ProductType";
 import { useEffect, useState } from "react";
 import Cross from "../assets/Cross";
 import Button from "../components/Button";
+import { useToast } from "../components/ToastContext";
 
 export default function Cart() {
   const [shipmentPrice, setShipmentPrice] = useState<number>(0);
@@ -10,19 +11,19 @@ export default function Cart() {
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const { createToast } = useToast();
 
   const removeFromCart = async (id: number) => {
     try {
       await fetch(
         `https://webstorejs.azurewebsites.net/api/cart/${1}/removeProduct?productId=${id}`
       );
-    } catch (err) {
-      const ErrorMsg = err instanceof Error ? err.message : err;
-      navigate("/cart", { state: ErrorMsg });
-    } finally {
       setProducts((productList) =>
         productList.filter((product) => product.id !== id)
       );
+      createToast("success", "Product removed from cart");
+    } catch (err) {
+      console.error("error", `${err instanceof Error ? err.message : err}`);
     }
   };
 

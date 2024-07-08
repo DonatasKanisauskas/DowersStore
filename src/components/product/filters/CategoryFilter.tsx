@@ -4,14 +4,12 @@ interface CategoryFilterProps {
   className?: string;
   category: string;
   setNewCategory: React.Dispatch<React.SetStateAction<string>>;
-  setError: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 export default function CategoryFilter({
   className,
   category,
   setNewCategory,
-  setError,
 }: CategoryFilterProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -23,22 +21,19 @@ export default function CategoryFilter({
     const fetchCategories = async () => {
       try {
         const response = await fetch(
-          "https://dummyjson.com/products/categories"
+          "https://webstorejs.azurewebsites.net/api/categories"
         );
         const data = await response.json();
-        if (Array.isArray(data)) setCategories(data);
-        else setError(`Error fetching categories: ${data.message}`);
+        if (Array.isArray(data.categories)) setCategories(data.categories);
+        else
+          console.error("error", `Error fetching categories: ${data.message}`);
       } catch (err) {
-        setError(
-          err instanceof Error
-            ? `Error fetching categories: ${err.message}`
-            : `Unexpected error: ${err}`
-        );
+        console.error("error", `${err instanceof Error ? err.message : err}`);
       }
     };
 
     fetchCategories();
-  }, [setError]);
+  }, []);
 
   // Scroll to top when dropdown opens
   useEffect(() => {

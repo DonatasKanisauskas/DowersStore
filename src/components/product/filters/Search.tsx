@@ -4,14 +4,9 @@ import { productType } from "../../../types/ProductType";
 interface SearchProps {
   className?: string;
   setProducts: React.Dispatch<React.SetStateAction<productType[] | undefined>>;
-  setError: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-export default function Search({
-  className,
-  setProducts,
-  setError,
-}: SearchProps) {
+export default function Search({ className, setProducts }: SearchProps) {
   const [inputValue, setInputValue] = useState<string>("");
   const search = async () => {
     try {
@@ -23,11 +18,7 @@ export default function Search({
       const data = await response.json();
       setProducts(data.products);
     } catch (err) {
-      setError(
-        err instanceof Error
-          ? `Error fetching categories: ${err.message}`
-          : `Unexpected error: ${err}`
-      );
+      console.error("error", `${err instanceof Error ? err.message : err}`);
     }
   };
 

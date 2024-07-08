@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useLocation, useParams, useNavigate, Link } from "react-router-dom";
 import { productType } from "../types/ProductType";
 import { ProductCard, Pagination } from "../components/product";
-import Toast from "../components/Toast";
 import {
   ProductsPerPageSwitcher,
   CategoryFilter,
@@ -25,7 +24,6 @@ export default function Products() {
   const [newCategory, setNewCategory] = useState<string>(category || "");
   const [products, setProducts] = useState<productType[] | undefined>();
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [totalProducts, setTotalProducts] = useState<number>(0);
 
   // products update
@@ -42,18 +40,13 @@ export default function Products() {
         setProducts(data.products);
         setTotalProducts(data.total);
       } catch (err) {
-        setError(
-          err instanceof Error
-            ? `Error fetching categories: ${err.message}`
-            : `Unexpected error: ${err}`
-        );
+        console.error("error", `${err instanceof Error ? err.message : err}`);
       } finally {
         setLoading(false);
       }
     };
 
     fetchProducts();
-    setError(state);
   }, [category, state, page, productsPerPage]);
 
   // url update
@@ -73,14 +66,12 @@ export default function Products() {
         <Search
           className="w-full max-w-xs md:w-auto"
           setProducts={setProducts}
-          setError={setError}
         />
 
         <CategoryFilter
           className="w-full max-w-xs md:w-auto min-w-[160px]"
           category={category || "All products"}
           setNewCategory={setNewCategory}
-          setError={setError}
         />
 
         <ProductsPerPageSwitcher
@@ -91,8 +82,6 @@ export default function Products() {
           setProductsPerPage={setProductsPerPage}
         />
       </div>
-
-      {error && <Toast time={10} error={error} setError={setError} />}
 
       <div className="flex flex-wrap justify-center gap-3 sm:gap-5 min-h-[500px]">
         {loading ? (
