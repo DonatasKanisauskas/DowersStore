@@ -32,9 +32,9 @@ export default function Products() {
       setLoading(true);
       try {
         const response = await fetch(
-          `https://webstorejs.azurewebsites.net/api/products?skip=${
-            productsPerPage * page
-          }&limit=${productsPerPage}`
+          `https://webstorejs.azurewebsites.net/api/${
+            category ? category + "/" : ""
+          }products?skip=${productsPerPage * page}&limit=${productsPerPage}`
         );
         const data = await response.json();
         setProducts(data.products);
