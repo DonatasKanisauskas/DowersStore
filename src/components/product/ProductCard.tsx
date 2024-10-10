@@ -52,11 +52,11 @@ export default function ProductCard(product: productType) {
           {/* Rating */}
           <div className="flex items-center mt-2.5 mb-5 gap-4">
             {/* Rating Stars */}
-            <StarRating rating={product.rating} />
+            <StarRating rating={product.rating || 0} />
 
             {/* Rating Score */}
             <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">
-              {product.rating}
+              {`${product.rating || 0}`}
             </span>
           </div>
         </div>

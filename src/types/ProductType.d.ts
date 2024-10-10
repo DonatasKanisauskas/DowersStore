@@ -3,12 +3,12 @@ export interface productType {
   title: string;
   description: string;
   price: number;
-  discountPercentage: number;
-  rating: number;
+  discountpercentage: number;
   stock: number;
   brand: string;
-  category: string;
   thumbnail: string;
+  categories: string[];
+  rating?: number;
   images?: string[];
 }
 
@@ -18,7 +18,7 @@ export interface cartProduct {
   price: number;
   stock: number;
   quantity: number;
-  discountPercentage: number;
+  discountpercentage: number;
   discountedPrice: number;
   thumbnail: string;
 }
