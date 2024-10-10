@@ -7,6 +7,7 @@ import {
   CategoryFilter,
   Search,
 } from "../components/product/filters";
+const api_url = import.meta.env.VITE_API_URL;
 
 export default function Products() {
   const { category } = useParams();
@@ -31,11 +32,12 @@ export default function Products() {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        const response = await fetch(
-          `https://webstorejs.azurewebsites.net/api/${
-            category ? category + "/" : ""
-          }products?skip=${productsPerPage * page}&limit=${productsPerPage}`
-        );
+        const response = await fetch(`${api_url}/products`);
+        // const response = await fetch(
+        //   `https://webstorejs.azurewebsites.net/api/${
+        //     category ? category + "/" : ""
+        //   }products?skip=${productsPerPage * page}&limit=${productsPerPage}`
+        // );
         const data = await response.json();
         setProducts(data.products);
         setTotalProducts(data.total);

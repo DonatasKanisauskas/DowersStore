@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+const api_url = import.meta.env.VITE_API_URL;
 
 interface CategoryFilterProps {
   className?: string;
@@ -20,9 +21,7 @@ export default function CategoryFilter({
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch(
-          "https://webstorejs.azurewebsites.net/api/categories"
-        );
+        const response = await fetch(`${api_url}/categories`);
         const data = await response.json();
         if (Array.isArray(data.categories)) setCategories(data.categories);
         else

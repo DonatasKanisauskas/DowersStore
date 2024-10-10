@@ -6,6 +6,7 @@ import Carousel from "../components/Carousel";
 import Button from "../components/Button";
 import HeartOutline from "../assets/HeartOutline";
 import { useToast } from "../components/ToastContext";
+const api_url = import.meta.env.VITE_API_URL;
 
 export default function ProductDetails() {
   const { createToast } = useToast();
@@ -37,9 +38,7 @@ export default function ProductDetails() {
     const fetchProduct = async () => {
       setLoading(true);
       try {
-        const response = await fetch(
-          `https://webstorejs.azurewebsites.net/api/products/${id}`
-        );
+        const response = await fetch(`${api_url}/products/${id}`);
         const data = await response.json();
         if (data.message) {
           navigate("/", { state: data.message });
@@ -79,7 +78,7 @@ export default function ProductDetails() {
                 <p className="pr-5">{product.brand}</p>
               </div>
               <p className="font-bold text-lg">${product.price}</p>
-              <p className="hidden">-{product.discountPercentage}%</p>
+              <p className="hidden">-{product.discountpercentage}%</p>
               <p className="py-2">{product.description}</p>
 
               <div className="flex gap-1">
@@ -102,8 +101,8 @@ export default function ProductDetails() {
               </div>
 
               <div className="flex my-1">
-                <StarRating rating={product.rating} />
-                <span className="ml-2">({product.rating})</span>
+                <StarRating rating={product.rating || 0} />
+                <span className="ml-2">{product.rating} (0)</span>
               </div>
             </div>
 
