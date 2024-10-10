@@ -1,23 +1,34 @@
-<p align="right"><a href="https://salmon-ground-0a10f7303.5.azurestaticapps.net">Live Demo</a></p>
+<p align="right"><a href="http://185.34.52.182/products/">Live Demo</a></p>
 
 # React Shop
 
-A modern e-commerce website showcasing frontend development skills, built with Vite, React, TypeScript, and Tailwind CSS. This project interacts with a backend powered by Azure Functions and Azure SQL Database.
+A modern e-commerce website showcasing frontend development skills, built with Vite, React, TypeScript, and Tailwind CSS.
 
 ## Table of Contents
 
-- [Features](#features)
+- [Technologies](#technologies-used)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [Live Demo](#live-demo)
 - [License](#license)
 
-## Features
+## Technologies Used
 
-- **Responsive Design**: Crafted with Tailwind CSS for a seamless user experience.
-- **Azure Integration**: Backend powered by Azure Functions for API services, and Azure SQL Database for data storage.
-- **Modern Technologies**: Developed using Vite, React, and TypeScript for efficient development and maintenance.
+- **Front-end**:
+
+  - [Vite](https://vitejs.dev/): A fast build tool and development server.
+  - [React](https://reactjs.org/): A JavaScript library for building user interfaces.
+  - [TypeScript](https://www.typescriptlang.org/): A typed superset of JavaScript that compiles to plain JavaScript.
+  - [Tailwind CSS](https://tailwindcss.com/): A utility-first CSS framework for styling.
+
+- **Back-end**:
+
+  - [FastAPI](https://fastapi.tiangolo.com/): A modern web framework for building APIs with Python.
+  - [SQLAlchemy](https://www.sqlalchemy.org/): A SQL toolkit and Object-Relational Mapping (ORM) library for Python.
+
+- **Database**:
+  - [PostgreSQL](https://www.postgresql.org/): A powerful, open-source object-relational database system.
 
 ## Installation
 
@@ -65,7 +76,7 @@ Contributions are welcome! Please follow these steps:
 
 ## Live Demo
 
-Check out the live website hosted on Azure Static Web Apps: [ReactShop](https://salmon-ground-0a10f7303.5.azurestaticapps.net)
+Check out the live website: [ReactShop](http://185.34.52.182/products/)
 
 ## License
 
