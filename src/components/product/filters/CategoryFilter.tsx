@@ -1,29 +1,30 @@
 import React, { useEffect, useRef, useState } from "react";
+import { CategoryType } from "../../../types/CategoryType";
 const api_url = import.meta.env.VITE_API_URL;
 
 interface CategoryFilterProps {
   className?: string;
-  category: string;
-  setNewCategory: React.Dispatch<React.SetStateAction<string>>;
+  categoryid: number;
+  setNewCategoryId: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export default function CategoryFilter({
   className,
-  category,
-  setNewCategory,
+  categoryid,
+  setNewCategoryId,
 }: CategoryFilterProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [categories, setCategories] = useState<string[]>([]);
+  const [categories, setCategories] = useState<CategoryType[]>([]);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // first mount update
+  // Fetch categories from the API
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const response = await fetch(`${api_url}/categories`);
         const data = await response.json();
-        if (Array.isArray(data.categories)) setCategories(data.categories);
+        if (Array.isArray(data)) setCategories(data);
         else
           console.error("error", `Error fetching categories: ${data.message}`);
       } catch (err) {
@@ -50,13 +51,13 @@ export default function CategoryFilter({
     setSearchTerm(e.target.value.toLowerCase());
   };
 
-  const selectCategory = (selectedCategory: string) => {
-    setNewCategory(selectedCategory);
+  const selectCategory = (selectedCategoryId: number) => {
+    setNewCategoryId(selectedCategoryId);
     toggleDropdown();
   };
 
   const showAllProducts = () => {
-    setNewCategory("");
+    setNewCategoryId(0);
     toggleDropdown();
   };
 
@@ -76,7 +77,11 @@ export default function CategoryFilter({
         data-tooltip-target="tooltip-bottom"
         data-tooltip-placement="bottom"
       >
-        <span>{category}</span>
+        {/* Show the selected category name */}
+        <span>
+          {categories.find((cat) => cat.id === categoryid)?.name ||
+            "Select a category"}
+        </span>
         <svg
           className="w-2.5 h-2.5"
           aria-hidden="true"
@@ -113,15 +118,15 @@ export default function CategoryFilter({
           </p>
           {categories
             .filter((category) =>
-              category.toLowerCase().includes(searchTerm.toLowerCase())
+              category.name.toLowerCase().includes(searchTerm.toLowerCase())
             )
-            .map((category, i) => (
+            .map((category) => (
               <p
-                key={i}
-                onClick={() => selectCategory(category)}
+                key={category.id}
+                onClick={() => selectCategory(category.id)}
                 className="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer rounded-md"
               >
-                {category}
+                {category.name}
               </p>
             ))}
         </div>

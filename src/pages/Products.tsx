@@ -10,7 +10,7 @@ import {
 const api_url = import.meta.env.VITE_API_URL;
 
 export default function Products() {
-  const { category } = useParams();
+  const { categoryid } = useParams();
   const { state, search } = useLocation();
   const navigate = useNavigate();
 
@@ -22,10 +22,14 @@ export default function Products() {
   const [productsPerPage, setProductsPerPage] = useState<number>(
     initialProductsPerPage
   );
-  const [newCategory, setNewCategory] = useState<string>(category || "");
+  const [newCategoryId, setNewCategoryId] = useState<number>(0);
   const [products, setProducts] = useState<productType[] | undefined>();
   const [loading, setLoading] = useState(true);
   const [totalProducts, setTotalProducts] = useState<number>(0);
+
+  useEffect(() => {
+    setNewCategoryId(Number(categoryid) || 0);
+  }, [categoryid]);
 
   // products update
   useEffect(() => {
@@ -49,17 +53,17 @@ export default function Products() {
     };
 
     fetchProducts();
-  }, [category, state, page, productsPerPage]);
+  }, [categoryid, state, page, productsPerPage]);
 
   // url update
   useEffect(() => {
-    if (category !== newCategory && newCategory !== "") setPage(0);
+    if (Number(categoryid) !== newCategoryId && newCategoryId !== 0) setPage(0);
     navigate(
       `${
-        newCategory ? "/" + newCategory : ""
+        newCategoryId ? "/" + newCategoryId : ""
       }/products?p=${page}&pc=${productsPerPage}`
     );
-  }, [category, newCategory, page, productsPerPage, navigate]);
+  }, [categoryid, newCategoryId, page, productsPerPage, navigate]);
 
   return (
     <>
@@ -72,8 +76,8 @@ export default function Products() {
 
         <CategoryFilter
           className="w-full max-w-xs md:w-auto min-w-[160px]"
-          category={category || "All products"}
-          setNewCategory={setNewCategory}
+          categoryid={newCategoryId || 0}
+          setNewCategoryId={setNewCategoryId}
         />
 
         <ProductsPerPageSwitcher

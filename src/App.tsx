@@ -15,7 +15,7 @@ export default function App() {
         <div className="container flex flex-col gap-10 mx-auto px-1 sm:px-4">
           <Routes>
             <Route path="/products" element={<Products />} />
-            <Route path="/:category/products" element={<Products />} />
+            <Route path="/:categoryid/products" element={<Products />} />
             <Route path="/products/:id" element={<ProductDetails />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/" element={<Navigate to="/products" />} />
