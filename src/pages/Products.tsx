@@ -22,21 +22,21 @@ export default function Products() {
   const [productsPerPage, setProductsPerPage] = useState<number>(
     initialProductsPerPage
   );
-  const [newCategoryId, setNewCategoryId] = useState<number>(0);
+  const [newCategoryId, setNewCategoryId] = useState<number>(
+    Number(categoryid) || 0
+  );
   const [products, setProducts] = useState<productType[] | undefined>();
   const [loading, setLoading] = useState(true);
   const [totalProducts, setTotalProducts] = useState<number>(0);
-
-  useEffect(() => {
-    setNewCategoryId(Number(categoryid) || 0);
-  }, [categoryid]);
 
   // products update
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`${api_url}/products`);
+        const response = await fetch(
+          `${api_url}/products${categoryid ? "?category_id=" + categoryid : ""}`
+        );
         // const response = await fetch(
         //   `https://webstorejs.azurewebsites.net/api/${
         //     category ? category + "/" : ""

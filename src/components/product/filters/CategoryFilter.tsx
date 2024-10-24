@@ -24,7 +24,7 @@ export default function CategoryFilter({
       try {
         const response = await fetch(`${api_url}/categories`);
         const data = await response.json();
-        if (Array.isArray(data)) setCategories(data);
+        if (Array.isArray(data.categories)) setCategories(data.categories);
         else
           console.error("error", `Error fetching categories: ${data.message}`);
       } catch (err) {
@@ -118,7 +118,7 @@ export default function CategoryFilter({
           </p>
           {categories
             .filter((category) =>
-              category.name.toLowerCase().includes(searchTerm.toLowerCase())
+              category.name.toLowerCase().includes(searchTerm)
             )
             .map((category) => (
               <p

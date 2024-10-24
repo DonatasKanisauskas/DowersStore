@@ -1,3 +1,5 @@
+import { CategoryType } from "./CategoryType";
+
 export interface productType {
   id: number;
   title: string;
@@ -7,7 +9,7 @@ export interface productType {
   stock: number;
   brand: string;
   thumbnail: string;
-  categories: string[];
+  categories: CategoryType[];
   rating?: number;
   images?: string[];
 }
