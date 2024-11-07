@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Cross from "../assets/Cross";
 import Button from "../components/Button";
 import { useToast } from "../components/ToastContext";
+const api_url = import.meta.env.VITE_API_URL;
 
 export default function Cart() {
   const [shipmentPrice, setShipmentPrice] = useState<number>(0);
@@ -12,6 +13,7 @@ export default function Cart() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { createToast } = useToast();
+  const userid = 1; // temporary variable
 
   const removeFromCart = async (id: number) => {
     try {
@@ -43,13 +45,14 @@ export default function Cart() {
       setLoading(true);
       try {
         const response = await fetch(
-          `https://webstorejs.azurewebsites.net/api/cart/${1}`
+          // `https://webstorejs.azurewebsites.net/api/cart/${1}`
+          `${api_url}/cart/${userid}`
         );
         const data = await response.json();
         if (data.message) {
           navigate("/", { state: data.message });
         } else {
-          setProducts(data.products);
+          setProducts(data.cart_products);
         }
       } catch (err) {
         const ErrorMsg = err instanceof Error ? err.message : err;

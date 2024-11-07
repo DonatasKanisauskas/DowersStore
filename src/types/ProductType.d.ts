@@ -21,6 +21,6 @@ export interface cartProduct {
   stock: number;
   quantity: number;
   discountpercentage: number;
-  discountedPrice: number;
+  brand: string;
   thumbnail: string;
 }
