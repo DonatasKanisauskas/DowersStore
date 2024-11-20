@@ -1,4 +1,4 @@
-<p align="right"><a href="http://185.34.52.182/products/">Live Demo</a></p>
+<p align="right"><a href="https://dower.lt/products/">Live Demo</a></p>
 
 # React Shop
 
@@ -76,7 +76,7 @@ Contributions are welcome! Please follow these steps:
 
 ## Live Demo
 
-Check out the live website: [ReactShop](http://185.34.52.182/products/)
+Check out the live website: [ReactShop](https://dower.lt/products/)
 
 ## License
 
