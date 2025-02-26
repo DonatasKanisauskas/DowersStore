@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Products from "./pages/Products";
 import Header from "./layouts/Header";
 import Footer from "./layouts/Footer";
@@ -18,8 +18,8 @@ export default function App() {
             <Route path="/:categoryid/products" element={<Products />} />
             <Route path="/products/:id" element={<ProductDetails />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/" element={<Navigate to="/products" />} />
-            <Route path="*" element={<Navigate to="/products" />} />
+            <Route path="/" element={<Products />} />
+            <Route path="*" element={<Products />} />
           </Routes>
         </div>
         <Footer />

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useLocation, useParams, useNavigate, Link } from "react-router-dom";
 import { productType } from "../types/ProductType";
 import { ProductCard, Pagination } from "../components/product";
@@ -28,6 +28,7 @@ export default function Products() {
   const [products, setProducts] = useState<productType[] | undefined>();
   const [loading, setLoading] = useState(true);
   const [totalProducts, setTotalProducts] = useState<number>(0);
+  const isInitialLoad = useRef(true);
 
   // products update
   useEffect(() => {
@@ -57,6 +58,11 @@ export default function Products() {
 
   // url update
   useEffect(() => {
+    console.log("isInitialLoad.current: " + isInitialLoad.current);
+    if (isInitialLoad.current) {
+      isInitialLoad.current = false;
+      return;
+    }
     if (Number(categoryid) !== newCategoryId && newCategoryId !== 0) setPage(0);
     navigate(
       `${

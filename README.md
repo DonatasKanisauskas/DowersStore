@@ -1,4 +1,4 @@
-<p align="right"><a href="https://dower.lt/products/">Live Demo</a></p>
+<p align="right"><a href="https://dower.lt/">Live Demo</a></p>
 
 # React Shop
 
